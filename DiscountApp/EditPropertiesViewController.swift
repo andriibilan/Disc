@@ -37,8 +37,15 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
     }
     
     @IBAction func generateBarCode(_ sender: Any) {
+         if barCodeText.text != nil && barCodeText.text != "" {
         barCodeImage?.image = RSUnifiedCodeGenerator.shared.generateCode(barCodeText.text!, machineReadableCodeObjectType: AVMetadataObject.ObjectType.ean13.rawValue)
-    }
+         }else{
+                let alertController = UIAlertController(title: "Error", message: "You should to write 13 symbols for generate barcode", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+                
+            }
+        }
     
     @IBAction func createCard(_ sender: Any) {
         if  cardName.text != "" && cardDescription.text != "" && frontImage != nil {
