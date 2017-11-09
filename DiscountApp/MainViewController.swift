@@ -16,6 +16,33 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var searchBar: UISearchBar!
     
     
+
+    @IBAction func filterFromSegment(_ sender: UISegmentedControl) {
+     let  indexSegment = sender.selectedSegmentIndex
+      
+        switch indexSegment {
+        case 0:
+            cardArray = card.fetchData(filter: "")
+            prototypeTableView.reloadData()
+        case 1:
+            cardArray = card.fetchData(filter: "Shop")
+            prototypeTableView.reloadData()
+        case 2:
+            cardArray = card.fetchData(filter: "Food")
+            prototypeTableView.reloadData()
+              print(cardArray)
+        case 3:
+            cardArray = card.fetchData(filter: "Cafe")
+            prototypeTableView.reloadData()
+        case 4:
+            cardArray = card.fetchData(filter: "Pharmacy")
+            prototypeTableView.reloadData()
+        default:
+            cardArray = card.fetchData(filter: "Other")
+            prototypeTableView.reloadData()
+        }
+    
+    }
     
     
     func filterForTableView(text: String){

@@ -20,7 +20,8 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
     @IBOutlet weak var barCodeImage: UIImageView?
     @IBOutlet weak var barCodeText: UITextField!
     @IBOutlet weak var cardDescription: UITextView!
-   
+    @IBOutlet weak var SegmentFilter: UISegmentedControl!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,7 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
             self.frontImage?.image = card.loadImageFromPath(path: cardChange.cardFrontImage!)
             self.backImage?.image = card.loadImageFromPath(path: cardChange.cardBackImage!)
             self.barCodeImage?.image = card.loadImageFromPath(path: cardChange.cardBarCode!)
+            self.SegmentFilter.selectedSegmentIndex = card.showSegment(value: cardChange.cardFilter)
         }
     }
     
@@ -56,14 +58,16 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
                                date: Date(),
                                frontImage: card.addToUrl((frontImage?.image)!),
                                backImage: card.addToUrl((backImage?.image)!),
-                               barCode: card.addToUrl((barCodeImage?.image)!))
+                               barCode: card.addToUrl((barCodeImage?.image)!),
+                               filter: card.chooseSegmentOfFilter(segment: SegmentFilter) )
             } else {
                 card.createCard( name: cardName.text,
                                  descript: cardDescription.text,
                                  date: Date(),
                                  frontImage: card.addToUrl((frontImage?.image)!),
                                  backImage: card.addToUrl((backImage?.image)!),
-                                 barCode: card.addToUrl((barCodeImage?.image)!))
+                                 barCode: card.addToUrl((barCodeImage?.image)!),
+                                 filter: card.chooseSegmentOfFilter(segment: SegmentFilter))
             }
         }else {
             let alertController = UIAlertController(title: "OOPS", message: "You need to give all the informations required to save this card", preferredStyle: .alert)
@@ -142,24 +146,4 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
         picker.dismiss(animated: true, completion: nil)
     }
 
-    func generateBarcode(from string: String) -> UIImage? {
-        let data = string.data(using: String.Encoding.ascii)
-        if barCodeText.text != nil && barCodeText.text != "" {
-            if let filter = CIFilter(name: "CICode128BarcodeGenerator") {
-                filter.setValue(data, forKey: "inputMessage")
-                let transform = CGAffineTransform(scaleX: 3, y: 3)
-                if let output = filter.outputImage?.transformed(by: transform) {
-                    return UIImage(ciImage: output)
-                }
-            }
-        }else{
-            let alertController = UIAlertController(title: "Error", message: "You need to write text for generate barcode", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            self.present(alertController, animated: true, completion: nil)
-            
-        }
-        return nil
-    }
-   
-    
 }

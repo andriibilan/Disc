@@ -60,10 +60,10 @@
             </objects>
             <point key="canvasLocation" x="587" y="-541"/>
         </scene>
-        <!--Bar Code View Controller-->
+        <!--Page Image View Controller-->
         <scene sceneID="Okv-sf-nG5">
             <objects>
-                <viewController storyboardIdentifier="barCode" id="F78-IA-mma" customClass="BarCodeViewController" customModule="DiscountApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="barCode" useStoryboardIdentifierAsRestorationIdentifier="YES" id="F78-IA-mma" customClass="PageImageViewController" customModule="DiscountApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ynj-cn-ZQ1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -99,18 +99,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PVb-1m-X2i"/>
                     </view>
-                    <connections>
-                        <outlet property="barCodeImage" destination="I3o-el-8qS" id="srv-Ku-SCL"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jzM-VP-bhq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="532" y="-1293.1034482758621"/>
         </scene>
-        <!--Page Back View Controller-->
+        <!--Page Image View Controller-->
         <scene sceneID="a33-VW-Xpo">
             <objects>
-                <viewController storyboardIdentifier="backImage" id="3hY-75-i83" customClass="PageBackViewController" customModule="DiscountApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="backImage" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3hY-75-i83" customClass="PageImageViewController" customModule="DiscountApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xa2-hD-8Ja">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -146,9 +143,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dYU-81-K3H"/>
                     </view>
-                    <connections>
-                        <outlet property="backImage" destination="qDO-YW-pwT" id="ble-JS-oPb"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nRU-Xj-888" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -157,7 +151,7 @@
         <!--Page Image View Controller-->
         <scene sceneID="iBg-Oq-zra">
             <objects>
-                <viewController storyboardIdentifier="frontImage" id="pmY-6i-zqt" customClass="PageImageViewController" customModule="DiscountApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="frontImage" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pmY-6i-zqt" customClass="PageImageViewController" customModule="DiscountApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JmN-Q8-Jw7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -194,7 +188,7 @@
                         <viewLayoutGuide key="safeArea" id="rYn-L3-SOc"/>
                     </view>
                     <connections>
-                        <outlet property="frontImage" destination="ikp-oj-Que" id="6e5-3B-lS7"/>
+                        <outlet property="frontImage" destination="ikp-oj-Que" id="s96-gX-OwN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I5X-aS-p33" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -240,33 +234,8 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="zar-r8-LT7">
-                                <rect key="frame" x="0.0" y="637" width="375" height="30"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WMv-R0-ACe">
-                                        <rect key="frame" x="0.0" y="0.0" width="75" height="30"/>
-                                        <state key="normal" title="Button"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dGK-cK-aaH">
-                                        <rect key="frame" x="75" y="0.0" width="75" height="30"/>
-                                        <state key="normal" title="Button"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gfi-af-8nt">
-                                        <rect key="frame" x="150" y="0.0" width="75" height="30"/>
-                                        <state key="normal" title="Button"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQ6-Ud-fsh">
-                                        <rect key="frame" x="225" y="0.0" width="75" height="30"/>
-                                        <state key="normal" title="Button"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c2p-ND-t3B">
-                                        <rect key="frame" x="300" y="0.0" width="75" height="30"/>
-                                        <state key="normal" title="Button"/>
-                                    </button>
-                                </subviews>
-                            </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aFV-J8-dCi">
-                                <rect key="frame" x="0.0" y="120" width="375" height="517"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="505"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="prototypeCell" rowHeight="98" id="rmR-t7-xDv" customClass="TableViewCell" customModule="DiscountApp" customModuleProvider="target">
@@ -277,7 +246,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="iCK-vm-3ka">
-                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="97.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="97.5"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="q04-qz-jG7">
                                                             <rect key="frame" x="0.0" y="0.0" width="144" height="82.5"/>
@@ -298,7 +267,7 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Yr8-XK-TMP">
-                                                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="41"/>
+                                                            <rect key="frame" x="154" y="0.0" width="221" height="41"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lem-hj-fxd">
                                                                     <rect key="frame" x="0.0" y="0.0" width="44.5" height="20.5"/>
@@ -334,21 +303,35 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="40" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FrD-15-6sR">
+                                <rect key="frame" x="0.0" y="625" width="375" height="41"/>
+                                <segments>
+                                    <segment title="All"/>
+                                    <segment title="Shop"/>
+                                    <segment title="Food"/>
+                                    <segment title="Cafe"/>
+                                    <segment title="Pharmacy" width="66"/>
+                                    <segment title="Other"/>
+                                </segments>
+                                <connections>
+                                    <action selector="filterFromSegment:" destination="9Jh-F2-y6j" eventType="valueChanged" id="DQC-nt-gd2"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="fEg-rO-5Ut" firstAttribute="bottom" secondItem="zar-r8-LT7" secondAttribute="bottom" id="8iv-h5-qX8"/>
-                            <constraint firstItem="zar-r8-LT7" firstAttribute="leading" secondItem="fEg-rO-5Ut" secondAttribute="leading" id="U7Y-u6-REW"/>
+                            <constraint firstItem="FrD-15-6sR" firstAttribute="leading" secondItem="fEg-rO-5Ut" secondAttribute="leading" id="5zb-Q0-3ZM"/>
                             <constraint firstItem="fEg-rO-5Ut" firstAttribute="top" secondItem="P9Q-Wu-TME" secondAttribute="top" id="YBz-2G-d7i"/>
                             <constraint firstItem="fEg-rO-5Ut" firstAttribute="trailing" secondItem="aFV-J8-dCi" secondAttribute="trailing" id="ZVf-hy-6Xa"/>
-                            <constraint firstItem="zar-r8-LT7" firstAttribute="top" secondItem="aFV-J8-dCi" secondAttribute="bottom" id="ds6-BK-lQs"/>
                             <constraint firstItem="aFV-J8-dCi" firstAttribute="leading" secondItem="fEg-rO-5Ut" secondAttribute="leading" id="e4r-L0-yFM"/>
                             <constraint firstItem="fEg-rO-5Ut" firstAttribute="trailing" secondItem="5T6-cb-UPb" secondAttribute="trailing" id="ewf-fV-JfV"/>
                             <constraint firstItem="P9Q-Wu-TME" firstAttribute="leading" secondItem="fEg-rO-5Ut" secondAttribute="leading" id="gPb-L0-Ifn"/>
                             <constraint firstItem="aFV-J8-dCi" firstAttribute="top" secondItem="5T6-cb-UPb" secondAttribute="bottom" id="h1O-Ta-sqE"/>
                             <constraint firstItem="5T6-cb-UPb" firstAttribute="top" secondItem="P9Q-Wu-TME" secondAttribute="bottom" id="hqx-Df-1ee"/>
-                            <constraint firstItem="fEg-rO-5Ut" firstAttribute="trailing" secondItem="zar-r8-LT7" secondAttribute="trailing" id="lKJ-Og-Erk"/>
+                            <constraint firstItem="FrD-15-6sR" firstAttribute="top" secondItem="aFV-J8-dCi" secondAttribute="bottom" id="jCG-ZC-vYZ"/>
                             <constraint firstItem="5T6-cb-UPb" firstAttribute="leading" secondItem="fEg-rO-5Ut" secondAttribute="leading" id="oLl-do-AhY"/>
+                            <constraint firstItem="fEg-rO-5Ut" firstAttribute="trailing" secondItem="FrD-15-6sR" secondAttribute="trailing" id="qpF-VE-D42"/>
+                            <constraint firstItem="fEg-rO-5Ut" firstAttribute="bottom" secondItem="FrD-15-6sR" secondAttribute="bottom" constant="2" id="s2O-py-Rl2"/>
                             <constraint firstItem="fEg-rO-5Ut" firstAttribute="trailing" secondItem="P9Q-Wu-TME" secondAttribute="trailing" id="wjJ-hR-ijg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fEg-rO-5Ut"/>
@@ -455,6 +438,19 @@
                                                     <action selector="generateBarCode:" destination="khJ-lj-ebe" eventType="touchUpInside" id="VjY-R5-OQb"/>
                                                 </connections>
                                             </button>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="juq-bd-GKr">
+                                                <rect key="frame" x="24" y="790" width="343" height="29"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.87322145699999998" green="0.98523384329999997" blue="0.07190831751" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <segments>
+                                                    <segment title="Shop"/>
+                                                    <segment title="Food"/>
+                                                    <segment title="Cafe"/>
+                                                    <segment title="Pharmacy"/>
+                                                    <segment title="Other"/>
+                                                </segments>
+                                                <color key="tintColor" red="0.98180311919999996" green="0.30636215210000001" blue="0.56561243530000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </segmentedControl>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -482,6 +478,7 @@
                     </view>
                     <size key="freeformSize" width="375" height="1000"/>
                     <connections>
+                        <outlet property="SegmentFilter" destination="juq-bd-GKr" id="Zeg-Gl-5WP"/>
                         <outlet property="backImage" destination="UoI-Cw-YI6" id="a2k-wX-rW7"/>
                         <outlet property="barCodeImage" destination="k0j-Ly-d45" id="g56-6j-gPg"/>
                         <outlet property="barCodeText" destination="Pzb-JS-OPq" id="xfD-IL-j01"/>
@@ -502,11 +499,11 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1263" y="-101"/>
+            <point key="canvasLocation" x="1261.5999999999999" y="-101.64917541229386"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="4Qc-rK-QCL"/>
-        <segue reference="kR9-ih-R2x"/>
+        <segue reference="Pu4-Ig-Wzy"/>
+        <segue reference="YaB-RP-p5X"/>
     </inferredMetricsTieBreakers>
 </document>

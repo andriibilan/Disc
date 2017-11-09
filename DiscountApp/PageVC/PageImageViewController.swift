@@ -11,22 +11,30 @@ import UIKit
 class PageImageViewController: UIViewController {
     var pageVC = PageViewController()
     var card = CardManager()
-    @IBOutlet weak var frontImage: UIImageView?
-  
+    @IBOutlet weak var frontImage: UIImageView!
+    @IBOutlet weak var backImage: UIImageView!
+    @IBOutlet weak var barCode: UIImageView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
- showFrontImage()
+        //showFrontImage(image: frontImage)
 
    }
-    func showFrontImage(){
-        let showPath = pageVC.cardPage?.cardFrontImage
+    func showFrontImage(image: UIImageView){
+       let showPath = pageVC.cardPage
+        switch image {
+        case frontImage :
+            image.image = card.loadImageFromPath(path: (showPath?.cardFrontImage)!)
+        default:
+            break
+        }
        /// let transform1 = transform.translatedBy(x: self.size.width, y: 0)
-        frontImage?.transform = (frontImage?.transform.rotated(by: CGFloat( -Double.pi/2)))!
-        frontImage?.frame = CGRect(x: 50, y: 70, width: 275, height: 550)
-        frontImage?.image = card.loadImageFromPath(path: showPath!)
-    
+//        frontImage?.transform = (frontImage?.transform.rotated(by: CGFloat( -Double.pi/2)))!
+//        frontImage?.frame = CGRect(x: 50, y: 70, width: 275, height: 550)
+       // frontImage?.image = card.loadImageFromPath(path: showPath!)
+     
     }
 //    func rotateImage(){
 //    let customImageView = frontImage

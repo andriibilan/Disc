@@ -5,10 +5,11 @@
         <attribute name="cardBarCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cardDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="cardDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cardFilter" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cardFrontImage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cardName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Card" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="Card" positionX="-63" positionY="-18" width="128" height="150"/>
     </elements>
 </model>
