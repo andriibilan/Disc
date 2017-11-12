@@ -10,134 +10,102 @@ import UIKit
 
 class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
   
-    var pageControl = UIPageControl()
+    var pageControl = UIPageControl.appearance()
     var cardPage: Card?
     var card = CardManager()
+    var pageIndex = 0
+    var pageCount = 0
     
-    lazy var orderedViewControllers: [UIViewController] = {
-        return [self.newViewController(viewController:"frontImage"),
-                self.newViewController(viewController: "backImage"),
-                self.newViewController(viewController: "barCode")]
-      
-    }()
-
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
-            return nil
-        }
+        print(pageIndex)
+        var index = (viewController as! PageImageViewController).index
+        index = index - 1
         
-        let previousIndex = viewControllerIndex - 1
-        // User is on the first view controller and swiped left to loop to
-        // the last view controller.
-        guard previousIndex >= 0 else {
-            return orderedViewControllers.last
-        }
-        guard orderedViewControllers.count > previousIndex else {
-            return nil
-        }
-        return orderedViewControllers[previousIndex]
-        
+        return imageViewController(at: index)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllersIndex = orderedViewControllers.index(of: viewController) else {
-            return nil
-        }
         
-        let nextIndex = viewControllersIndex + 1
-        let orderedViewControllersCount = orderedViewControllers.count
-        // User is on the last view controller and swiped right to loop to
-        // the first view controller.
-        guard orderedViewControllersCount != nextIndex else {
-            return orderedViewControllers.first
-        }
-        guard orderedViewControllersCount > nextIndex else {
-            return nil
-        }
-        return orderedViewControllers[nextIndex]
+        var index = (viewController as! PageImageViewController).index
+        index = index + 1
+        
+        return imageViewController(at: index)
     }
     
-    func newViewController(viewController: String) -> UIViewController{
 
-//        if viewController == "frontImage"{
-//
-//            if let frontImageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: viewController) as? PageImageViewController {
-//                frontImageVC.pageVC = self
-//            //   frontImageVC.frontImage?.image = card.loadImageFromPath(path: (cardPage?.cardFrontImage)!)
-//                return frontImageVC
-//            }
-//        } else if viewController == "backImage" {
-//            if let backImageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: viewController) as? PageImageViewController{
-//                backImageVC.pageVC = self
-//                return backImageVC
-//            }
-//        }else if viewController == "barCode" {
-//            if let barCodeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: viewController) as? PageImageViewController {
-//                barCodeVC.pageVC = self
-//                return barCodeVC
-//
-//            }
-//        }
-//
 
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier:viewController)
-   
+    
+    func imageViewController(at index: Int) -> PageImageViewController? {
+        var maxCountOfPage = 3
+        let  imageArray = [cardPage?.cardFrontImage, cardPage?.cardBackImage, cardPage?.cardBarCode]
+        if cardPage?.cardBarCode != "" {
+            pageCount = imageArray.count
+        } else {
+            pageCount = imageArray.count-1
+            maxCountOfPage = 2
+        }
+        
+        if index < 0 || index >= maxCountOfPage {
+            return nil
+        }
+        if let imageViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PageImageViewController") as? PageImageViewController {
+            imageViewController.imagePage = imageArray[index]!
+            imageViewController.index = index
+            imageViewController.arrayCard = cardPage
+            return imageViewController
+        }
+        
+        return nil
     }
-
-  
     
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        let pageContentViewController = pageViewController.viewControllers![0]
-        self.pageControl.currentPage = orderedViewControllers.index(of: pageContentViewController)!
+        if completed {
+            if let  imageViewController = pageViewController.viewControllers?.first as? PageImageViewController {
+                print("Content view controller index: \(imageViewController.index)")
+                pageIndex = imageViewController.index
+               
+            }
+            
+            
+        }
+        
+
     }
     
-    func configurePageControl() {
-        // The total number of pages that are available is based on how many available colors we have.
-        pageControl = UIPageControl(frame: CGRect(x: 0,y: UIScreen.main.bounds.maxY - 75,width: UIScreen.main.bounds.width,height:75))
-        self.pageControl.numberOfPages = orderedViewControllers.count
-        self.pageControl.currentPage = 0
-        self.pageControl.tintColor = UIColor.black
-        self.pageControl.pageIndicatorTintColor = UIColor.white
-        self.pageControl.currentPageIndicatorTintColor = UIColor.black
-        self.view.addSubview(pageControl)
-    }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
         self.delegate = self
-       configurePageControl()
-
-        // This sets up the first view that will show up on our page control
-        if let firstViewController = orderedViewControllers.first {
+        if let firstViewController = imageViewController(at: 0) {
             setViewControllers([firstViewController],
                                direction: .forward,
                                animated: true,
                                completion: nil)}
-
     }
 
-   
-        
-        // Do any additional setup after loading the view.
-    
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+        self.pageControl.pageIndicatorTintColor = UIColor.green
+       // self.pageControl.backgroundColor = UIColor.
+        self.pageControl.currentPageIndicatorTintColor = UIColor.red
+        return pageCount
+    }
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
 
+        return 0
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
+
+
+
+
+
+

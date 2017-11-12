@@ -15,24 +15,24 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
     var imageIs = ""
     var cardEdit:Card?
     @IBOutlet weak var cardName: UITextField!
-    @IBOutlet weak var frontImage: UIImageView?
-    @IBOutlet weak var backImage: UIImageView?
+    @IBOutlet weak var frontImage: UIImageView!
+    @IBOutlet weak var backImage: UIImageView!
     @IBOutlet weak var barCodeImage: UIImageView?
     @IBOutlet weak var barCodeText: UITextField!
-    @IBOutlet weak var cardDescription: UITextView!
+    @IBOutlet weak var cardDescription: UITextView?
     @IBOutlet weak var SegmentFilter: UISegmentedControl!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.frontImage?.isUserInteractionEnabled = true
-        self.backImage?.isUserInteractionEnabled = true
+        self.frontImage.isUserInteractionEnabled = true
+        self.backImage.isUserInteractionEnabled = true
         
         if let cardChange = cardEdit {
             self.cardName.text = cardChange.cardName
-            self.cardDescription.text = cardChange.cardDescription
-            self.frontImage?.image = card.loadImageFromPath(path: cardChange.cardFrontImage!)
-            self.backImage?.image = card.loadImageFromPath(path: cardChange.cardBackImage!)
+            self.cardDescription?.text = cardChange.cardDescription
+            self.frontImage.image = card.loadImageFromPath(path: cardChange.cardFrontImage)
+            self.backImage.image = card.loadImageFromPath(path: cardChange.cardBackImage)
             self.barCodeImage?.image = card.loadImageFromPath(path: cardChange.cardBarCode!)
             self.SegmentFilter.selectedSegmentIndex = card.showSegment(value: cardChange.cardFilter)
         }
@@ -50,25 +50,26 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
         }
     
     @IBAction func createCard(_ sender: Any) {
-        if  cardName.text != "" && cardDescription.text != "" && frontImage != nil {
+        if  cardName.text != "" &&  frontImage.image != nil && backImage.image != nil {
             if cardEdit != nil {
                 card.editCard( card: cardEdit!,
-                               name: cardName.text,
-                               descript: cardDescription.text,
+                               name: cardName.text!,
+                               descript: cardDescription?.text,
                                date: Date(),
-                               frontImage: card.addToUrl((frontImage?.image)!),
-                               backImage: card.addToUrl((backImage?.image)!),
-                               barCode: card.addToUrl((barCodeImage?.image)!),
+                               frontImage: frontImage.image!,
+                               backImage: backImage.image!,
+                               barCode: barCodeImage?.image,
                                filter: card.chooseSegmentOfFilter(segment: SegmentFilter) )
             } else {
-                card.createCard( name: cardName.text,
-                                 descript: cardDescription.text,
+                card.createCard( name: cardName.text!,
+                                 descript: cardDescription?.text,
                                  date: Date(),
-                                 frontImage: card.addToUrl((frontImage?.image)!),
-                                 backImage: card.addToUrl((backImage?.image)!),
-                                 barCode: card.addToUrl((barCodeImage?.image)!),
+                                 frontImage: frontImage.image!,
+                                 backImage: backImage.image!,
+                                 barCode: barCodeImage?.image,
                                  filter: card.chooseSegmentOfFilter(segment: SegmentFilter))
             }
+            print()
         }else {
             let alertController = UIAlertController(title: "OOPS", message: "You need to give all the informations required to save this card", preferredStyle: .alert)
             

@@ -58,150 +58,55 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wfh-Na-JGw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="587" y="-541"/>
-        </scene>
-        <!--Page Image View Controller-->
-        <scene sceneID="Okv-sf-nG5">
-            <objects>
-                <viewController storyboardIdentifier="barCode" useStoryboardIdentifierAsRestorationIdentifier="YES" id="F78-IA-mma" customClass="PageImageViewController" customModule="DiscountApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ynj-cn-ZQ1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x2T-Li-EXv">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="Title" id="fVU-pu-8rI">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ca2-rV-Z8I">
-                                            <connections>
-                                                <segue destination="9Jh-F2-y6j" kind="show" id="kR9-ih-R2x"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="wTF-f2-K3w">
-                                            <connections>
-                                                <segue destination="khJ-lj-ebe" kind="show" id="4Qc-rK-QCL"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I3o-el-8qS">
-                                <rect key="frame" x="37" y="81" width="301" height="545"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.88735070169999997" green="0.049177578450000002" blue="0.0076235026810000002" alpha="0.89380886130000003" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="x2T-Li-EXv" firstAttribute="leading" secondItem="PVb-1m-X2i" secondAttribute="leading" id="7w8-Rx-Nsi"/>
-                            <constraint firstItem="PVb-1m-X2i" firstAttribute="trailing" secondItem="x2T-Li-EXv" secondAttribute="trailing" id="UgG-N7-Xj3"/>
-                            <constraint firstItem="PVb-1m-X2i" firstAttribute="top" secondItem="x2T-Li-EXv" secondAttribute="top" id="Z6H-Bt-kBb"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="PVb-1m-X2i"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jzM-VP-bhq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="532" y="-1293.1034482758621"/>
-        </scene>
-        <!--Page Image View Controller-->
-        <scene sceneID="a33-VW-Xpo">
-            <objects>
-                <viewController storyboardIdentifier="backImage" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3hY-75-i83" customClass="PageImageViewController" customModule="DiscountApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Xa2-hD-8Ja">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xsx-AR-MO7">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="Title" id="g32-uX-ps4">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="KpP-nb-RTE">
-                                            <connections>
-                                                <segue destination="9Jh-F2-y6j" kind="show" id="6DU-dv-5R7"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="N0b-ew-95i">
-                                            <connections>
-                                                <segue destination="khJ-lj-ebe" kind="show" id="wEn-FO-7oK"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qDO-YW-pwT">
-                                <rect key="frame" x="31" y="83" width="314" height="534"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="xsx-AR-MO7" firstAttribute="leading" secondItem="dYU-81-K3H" secondAttribute="leading" id="Cdf-sW-sdY"/>
-                            <constraint firstItem="dYU-81-K3H" firstAttribute="trailing" secondItem="xsx-AR-MO7" secondAttribute="trailing" id="MhI-97-FM3"/>
-                            <constraint firstItem="dYU-81-K3H" firstAttribute="top" secondItem="xsx-AR-MO7" secondAttribute="top" id="o0I-4w-wDZ"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="dYU-81-K3H"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nRU-Xj-888" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-311.19999999999999" y="-1293.1034482758621"/>
+            <point key="canvasLocation" x="186" y="-548"/>
         </scene>
         <!--Page Image View Controller-->
         <scene sceneID="iBg-Oq-zra">
             <objects>
-                <viewController storyboardIdentifier="frontImage" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pmY-6i-zqt" customClass="PageImageViewController" customModule="DiscountApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="JmN-Q8-Jw7">
+                <viewController storyboardIdentifier="PageImageViewController" modalTransitionStyle="flipHorizontal" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pmY-6i-zqt" customClass="PageImageViewController" customModule="DiscountApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleAspectFill" id="JmN-Q8-Jw7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6hI-Pa-qVV">
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wUD-rb-4TF">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Title" id="EH1-8k-lfc">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="R6O-eq-CIW">
+                                    <navigationItem title="Title" id="sUS-Dg-PWh">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="IRI-ql-A7v">
                                             <connections>
-                                                <segue destination="9Jh-F2-y6j" kind="show" id="8em-0J-pyX"/>
+                                                <segue destination="9Jh-F2-y6j" kind="show" id="EX7-jl-h1E"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="lGU-CO-kY9">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="t8b-3v-rMe">
                                             <connections>
-                                                <segue destination="khJ-lj-ebe" kind="show" id="Tic-tL-e3K"/>
+                                                <segue destination="khJ-lj-ebe" kind="show" identifier="showEditforPage" id="VXF-BK-Sca"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ikp-oj-Que">
-                                <rect key="frame" x="49" y="101" width="278" height="514"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.87322145699999998" green="0.98523384329999997" blue="0.07190831751" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.98180311919999996" green="0.30636215210000001" blue="0.56561243530000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="6hI-Pa-qVV" firstAttribute="leading" secondItem="rYn-L3-SOc" secondAttribute="leading" id="Mxy-4f-eEc"/>
-                            <constraint firstItem="rYn-L3-SOc" firstAttribute="top" secondItem="6hI-Pa-qVV" secondAttribute="top" id="NdA-aj-4As"/>
-                            <constraint firstItem="rYn-L3-SOc" firstAttribute="trailing" secondItem="6hI-Pa-qVV" secondAttribute="trailing" id="xmx-l4-AE6"/>
-                        </constraints>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="rYn-L3-SOc"/>
                     </view>
-                    <connections>
-                        <outlet property="frontImage" destination="ikp-oj-Que" id="s96-gX-OwN"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I5X-aS-p33" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1071.2" y="-1293.1034482758621"/>
+            <point key="canvasLocation" x="942" y="799"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="mjc-yf-NVi">
             <objects>
-                <pageViewController storyboardIdentifier="Main" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Bqw-k9-qV8" customClass="PageViewController" customModule="DiscountApp" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="Main" modalTransitionStyle="flipHorizontal" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Bqw-k9-qV8" customClass="PageViewController" customModule="DiscountApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <toolbarItems/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6XW-cj-tRB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-15" y="743"/>
+            <point key="canvasLocation" x="-15" y="706"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="ttx-n9-qfh">
@@ -235,7 +140,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aFV-J8-dCi">
-                                <rect key="frame" x="0.0" y="120" width="375" height="505"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="507"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="prototypeCell" rowHeight="98" id="rmR-t7-xDv" customClass="TableViewCell" customModule="DiscountApp" customModuleProvider="target">
@@ -303,8 +208,11 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="40" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FrD-15-6sR">
-                                <rect key="frame" x="0.0" y="625" width="375" height="41"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="40" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FrD-15-6sR" customClass="MySegmentedControl" customModule="DiscountApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="627" width="375" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="jlK-sh-jTk"/>
+                                </constraints>
                                 <segments>
                                     <segment title="All"/>
                                     <segment title="Shop"/>
@@ -331,20 +239,25 @@
                             <constraint firstItem="FrD-15-6sR" firstAttribute="top" secondItem="aFV-J8-dCi" secondAttribute="bottom" id="jCG-ZC-vYZ"/>
                             <constraint firstItem="5T6-cb-UPb" firstAttribute="leading" secondItem="fEg-rO-5Ut" secondAttribute="leading" id="oLl-do-AhY"/>
                             <constraint firstItem="fEg-rO-5Ut" firstAttribute="trailing" secondItem="FrD-15-6sR" secondAttribute="trailing" id="qpF-VE-D42"/>
-                            <constraint firstItem="fEg-rO-5Ut" firstAttribute="bottom" secondItem="FrD-15-6sR" secondAttribute="bottom" constant="2" id="s2O-py-Rl2"/>
+                            <constraint firstItem="fEg-rO-5Ut" firstAttribute="bottom" secondItem="FrD-15-6sR" secondAttribute="bottom" id="s2O-py-Rl2"/>
                             <constraint firstItem="fEg-rO-5Ut" firstAttribute="trailing" secondItem="P9Q-Wu-TME" secondAttribute="trailing" id="wjJ-hR-ijg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fEg-rO-5Ut"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="5iF-yL-CWp">
+                        <barButtonItem key="leftBarButtonItem" title="Sort" id="hDH-Db-qXI"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="cfN-lK-Ng9"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="prototypeTableView" destination="aFV-J8-dCi" id="wpg-DA-sNc"/>
                         <outlet property="searchBar" destination="5T6-cb-UPb" id="Pyy-wK-PDe"/>
-                        <segue destination="Bqw-k9-qV8" kind="show" identifier="show Paging" id="Vk4-ph-y6y"/>
+                        <segue destination="Bqw-k9-qV8" kind="show" identifier="show Paging" id="LHf-FF-we6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Az-Wd-5Ng" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-15.199999999999999" y="-100.29985007496252"/>
+            <point key="canvasLocation" x="-306" y="-112"/>
         </scene>
         <!--Edit Properties View Controller-->
         <scene sceneID="2mO-CQ-qjZ">
@@ -380,7 +293,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3pD-dS-xgt">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="images" translatesAutoresizingMaskIntoConstraints="NO" id="3pD-dS-xgt">
                                                 <rect key="frame" x="24" y="211" width="326" height="128"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.87322145699999998" green="0.98523384329999997" blue="0.07190831751" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -499,11 +412,14 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1261.5999999999999" y="-101.64917541229386"/>
+            <point key="canvasLocation" x="1913" y="-217"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="images" width="235" height="214"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Pu4-Ig-Wzy"/>
+        <segue reference="VXF-BK-Sca"/>
         <segue reference="YaB-RP-p5X"/>
     </inferredMetricsTieBreakers>
 </document>

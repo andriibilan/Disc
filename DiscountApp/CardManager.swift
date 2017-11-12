@@ -12,30 +12,35 @@ class CardManager: NSObject {
     
     
     
-    func createCard( name: String? , descript: String? , date: Date? ,frontImage: String? , backImage: String? , barCode: String?, filter: String){
+    func createCard( name: String , descript: String? , date: Date ,frontImage: UIImage , backImage: UIImage , barCode: UIImage?, filter: String){
         let context = getContext()
         let entity = NSEntityDescription.entity(forEntityName: "Card", in: context)
         let newCard = NSManagedObject(entity: entity!, insertInto: context)
+       // if descript != "" && barCode != nil {
             newCard.setValue(name, forKey: "cardName")
             newCard.setValue(descript, forKey: "cardDescription")
             newCard.setValue(date, forKey: "cardDate")
-            newCard.setValue(frontImage, forKey: "cardFrontImage")
-            newCard.setValue(backImage, forKey: "cardBackImage")
-            newCard.setValue(barCode, forKey: "cardBarCode")
+            newCard.setValue(addToUrl(frontImage), forKey: "cardFrontImage")
+            newCard.setValue(addToUrl(backImage), forKey: "cardBackImage")
+            newCard.setValue(addToUrl(barCode), forKey: "cardBarCode")
             newCard.setValue(filter, forKey: "cardFilter")
-        saveData()
+         saveData()
+        
+        print(newCard)
+       
     }
     
     
-    func editCard(card: Card, name: String? , descript: String? , date: Date?, frontImage: String? , backImage: String?, barCode: String?, filter: String){
+    func editCard(card: Card, name: String , descript: String? , date: Date, frontImage: UIImage , backImage: UIImage, barCode: UIImage?, filter: String){
         card.cardName = name
         card.cardDescription = descript
         card.cardDate = date
-        card.cardFrontImage = frontImage
-        card.cardBackImage = backImage
-        card.cardBarCode = barCode
-       card.cardFilter = filter
-         saveData()
+        card.cardFrontImage = addToUrl(frontImage)
+        card.cardBackImage = addToUrl(backImage)
+        card.cardBarCode = addToUrl(barCode!)
+        card.cardFilter = filter
+      
+        saveData()
     }
     
     func chooseSegmentOfFilter( segment: UISegmentedControl) -> String {
@@ -49,8 +54,6 @@ class CardManager: NSObject {
             return "Cafe"
         case 3:
             return "Pharmacy"
-        case 4:
-            return "Other"
         default:
             return "Other"
         }
@@ -72,20 +75,33 @@ class CardManager: NSObject {
         
         
     }
-    func addToUrl (_ photo: UIImage )  -> String {
+    func addToUrl (_ photo: UIImage? )  -> String {
+        guard photo != nil else {
+            return ""
+        }
         let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
         let uuidStringforURL = UUID().uuidString + ".jpg"
         let imgPath = URL(fileURLWithPath: documentDirectoryPath.appendingPathComponent(uuidStringforURL))// Change extension if you want to save as PNG
         let imageString = String(describing: imgPath)
         print(imageString)
         do{
-            try UIImageJPEGRepresentation(photo, 1.0)?.write(to: imgPath, options: .atomic)
+           // if photo != nil {
+            try UIImageJPEGRepresentation(photo!, 1.0)?.write(to: imgPath, options: .atomic)
+           // }
         }catch let error{
             print(error.localizedDescription)
         }
         return uuidStringforURL
+        //return imageString
+    }
+
+    func dateConvert(_ date: Date) -> String {
+       // DateFormatter.localizedString(from: (cardCell.cardDate)!, dateStyle: DateFormatter.Style.medium, timeStyle: DateFormatter.Style.short)
+      let dateAfterConvert = DateFormatter.localizedString(from: date, dateStyle: DateFormatter.Style.medium, timeStyle: DateFormatter.Style.short)
+        return dateAfterConvert
         
     }
+    
     func loadImageFromPath(path: String) -> UIImage? {
         let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
         let imageURL = URL(fileURLWithPath: documentDirectoryPath.appendingPathComponent(path))
@@ -97,6 +113,10 @@ class CardManager: NSObject {
         }
         return nil
     }
+
+    
+    
+    
     func getContext() ->NSManagedObjectContext {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.persistentContainer.viewContext

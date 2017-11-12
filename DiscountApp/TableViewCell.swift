@@ -12,8 +12,8 @@ class TableViewCell: UITableViewCell {
 
    @IBOutlet weak var imagePrototype: UIImageView!
     @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var cardDescription: UILabel!
-    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var cardDescription: UILabel?
+    @IBOutlet weak var date: UILabel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,8 +22,8 @@ class TableViewCell: UITableViewCell {
     
 //    var imageURl: URL? {
 //        didSet {
-//            imagePrototype?.image = nil
-  //         updateUI()
+//          //  imagePrototype?.image = nil
+//           updateUI()
 //        }
 //
 //    }

@@ -5,12 +5,13 @@
 //  Created by andriibilan on 10/30/17.
 //  Copyright © 2017 andriibilan. All rights reserved.
 //
-import Foundation
+//import Foundation
 import UIKit
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, SortedDelegate {
     var filter: String = ""
     var card = CardManager()
+  
     var  cardArray: [Card] = []
     @IBOutlet weak var prototypeTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -19,7 +20,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     @IBAction func filterFromSegment(_ sender: UISegmentedControl) {
      let  indexSegment = sender.selectedSegmentIndex
-      
         switch indexSegment {
         case 0:
             cardArray = card.fetchData(filter: "")
@@ -47,7 +47,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func filterForTableView(text: String){
         cardArray = cardArray.filter( { (mod)-> Bool in
-            return (mod.cardName?.lowercased().contains(text.lowercased()))!
+            return (mod.cardName.lowercased().contains(text.lowercased()))
         })
         prototypeTableView.reloadData()
     }
@@ -73,10 +73,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             cardArray.sort() {  $0.cardName.lowercased() > $1.cardName.lowercased() }
             prototypeTableView.reloadData()
         case .dateUp:
-            cardArray.sort() { $0.cardDate < $1.cardDate }
+            cardArray.sort() { $0.cardDate! < $1.cardDate! }
             prototypeTableView.reloadData()
         case .dateDown:
-            cardArray.sort() { $0.cardDate > $1.cardDate }
+            cardArray.sort() { $0.cardDate! > $1.cardDate! }
             prototypeTableView.reloadData()
             
         }
@@ -89,27 +89,37 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cardArray.count
     } 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = prototypeTableView?.dequeueReusableCell(withIdentifier: "prototypeCell", for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell", for: indexPath) as! TableViewCell
         let cardCell = cardArray[indexPath.row]
-      
+    //  print(cardArray)
         cell.name.text = cardCell.cardName
-       // print("card name : \(String(describing: card.cardName))")
-        
         cell.cardDescription?.text = cardCell.cardDescription
-       // print("card descr : \(String(describing: card.cardDescription))")
+        cell.date?.text = card.dateConvert(cardCell.cardDate!)
+ 
+        cell.imagePrototype.image = card.loadImageFromPath(path: cardCell.cardFrontImage)
+      
         
-        cell.date.text = DateFormatter.localizedString(from: (cardCell.cardDate as Date?)!, dateStyle: DateFormatter.Style.medium, timeStyle: DateFormatter.Style.short)
-
-       cell.imagePrototype!.image = card.loadImageFromPath(path: cardCell.cardFrontImage!)
         
-        //        if let cacheImage = imageCashe.object(forKey: card.cardName as AnyObject){
-        //            cell.imagePrototype.image = cacheImage as? UIImage
-        //        } else {
-        //             cell.imageURl = URL(string: card.cardFrontImage!)
-        //            self.imageCashe.setObject(URL(string: card.cardFrontImage!) as AnyObject, forKey: card.cardName as AnyObject)
-        //        }
+//        imageCache.obtainImageWithPath(imagePath: cardCell.cardFrontImage! ){ (image) in
+//            // Before assigning the image, check whether the current cell is visible
+//            if let updateCell = tableView.cellForRow(at: indexPath) {
+//                updateCell.imageView?.image = image
+//            }
+//        }
         
-        //  cell.imageURl = URL(string: card.cardFrontImage!)
+        
+        
+        
+//                if let cacheImage = imageCashe.object(forKey: card.cardName as AnyObject){
+//                    cell.imagePrototype.image = cacheImage as? UIImage
+//                } else {
+//                     cell.imageURl = URL(string: card.cardFrontImage!)
+//                    self.imageCashe.setObject(URL(string: card.cardFrontImage!) as AnyObject, forKey: card.cardName as AnyObject)
+//                }
+        
+         // cell.imageURl = URL(string: cardCell.cardFrontImage!)
+         // print("card name : \(String(describing: card.cardName))")
+         // print("card descr : \(String(describing: card.cardDescription))")
         // print("card foto : \(String(describing: URL(string: card.cardFrontImage!)))")
        
         return cell
@@ -152,13 +162,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      
        cardArray = card.fetchData(filter: filter)
-        self.prototypeTableView.reloadData()
+        prototypeTableView.reloadData()
         prototypeTableView.delegate = self
         prototypeTableView.dataSource = self
         searchBar.delegate = self
-    
+        
+//        let memoryCapacity = 5 * 1024 * 1024
+//        let diskCapacity = 5 * 1024 * 1024
+//        let urlCache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "MyDiskCache")
+//        URLCache.shared = urlCache
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -172,10 +185,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 popoverViewController.delegate = self
                 popoverViewController.popoverPresentationController?.delegate = self
             case "show Paging" :
+                //let navigationController = segue.destination as? UINavigationController
                 let pagingViewController = segue.destination as! PageViewController
+                  //  navigationController?.topViewController as! PageViewController
                 pagingViewController.cardPage =  sender as? Card
+                //                let pagingViewController = segue.destination as! PageViewController
+            //                pagingViewController.cardPage =  sender as? Card
             default :  break
-                // в мене в іншому випадку це паше ) d
+                
                 
             }
         }
@@ -185,12 +202,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         return UIModalPresentationStyle.none
     }
 
-    
-        
-    
-    
-    
-    
+ 
     
 }
 

@@ -9,40 +9,34 @@
 import UIKit
 
 class PageImageViewController: UIViewController {
-    var pageVC = PageViewController()
     var card = CardManager()
-    @IBOutlet weak var frontImage: UIImageView!
-    @IBOutlet weak var backImage: UIImageView!
-    @IBOutlet weak var barCode: UIImageView!
-    
-    
+    var arrayCard:Card?
+    var imagePage: String = ""
+    var index = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //showFrontImage(image: frontImage)
-
-   }
-    func showFrontImage(image: UIImageView){
-       let showPath = pageVC.cardPage
-        switch image {
-        case frontImage :
-            image.image = card.loadImageFromPath(path: (showPath?.cardFrontImage)!)
-        default:
-            break
-        }
-       /// let transform1 = transform.translatedBy(x: self.size.width, y: 0)
-//        frontImage?.transform = (frontImage?.transform.rotated(by: CGFloat( -Double.pi/2)))!
-//        frontImage?.frame = CGRect(x: 50, y: 70, width: 275, height: 550)
-       // frontImage?.image = card.loadImageFromPath(path: showPath!)
-     
+        
+        showView(imagePage)
+        
     }
-//    func rotateImage(){
-//    let customImageView = frontImage
-//        customImageView?.frame = CGRect(x: 50, y: 50, width: 250, height: 400)
-//        customImageView?.image = showFrontImage()
-//
-//        customImageView?.transform = customImageView.transform.rotated(by: CGFloat.init(M_PI_2))
-//    var rotatedImage = UIImage()
-//        rotatedImage = customImageView?.image
-//    }
+    
+    
+    
+    
+    func showView(_ imageStr: String) {
+        let imageForPaging = UIImageView(image: card.loadImageFromPath(path: imageStr))
+        imageForPaging.transform = imageForPaging.transform.rotated(by: CGFloat(-Double.pi / 2))
+        let newWidth = UIScreen.main.bounds.width - 20
+        let newHeight = newWidth / 0.68
+        imageForPaging.frame = CGRect(x: 10, y: 80, width: newWidth, height: newHeight)
+        view.addSubview(imageForPaging)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if  segue.identifier == "showEditforPage" {
+            let editViewController = segue.destination as! EditPropertiesViewController
+            editViewController.cardEdit = arrayCard
+        }
+    }
 }
+

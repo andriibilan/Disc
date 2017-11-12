@@ -9,10 +9,7 @@
 /* Begin PBXBuildFile section */
 		8A10DCF41FA78AB8002D1439 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10DCF31FA78AB8002D1439 /* MainViewController.swift */; };
 		8A5EE0D11FA9D6A0003DC6C3 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EE0CF1FA9D6A0003DC6C3 /* Card.swift */; };
-		8A77F3621FB37A6D006C057D /* SegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A77F3611FB37A6D006C057D /* SegmentControl.swift */; };
 		8A884E251FB1BA8A0046CA25 /* PageImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A884E241FB1BA8A0046CA25 /* PageImageViewController.swift */; };
-		8A884E271FB1FCAA0046CA25 /* PageBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A884E261FB1FCAA0046CA25 /* PageBackViewController.swift */; };
-		8A884E2A1FB1FCC10046CA25 /* BarCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A884E291FB1FCC10046CA25 /* BarCodeViewController.swift */; };
 		8A934DB11FA746BC006C4198 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A934DB01FA746BC006C4198 /* TableViewCell.swift */; };
 		8A934DB71FA76A9D006C4198 /* EditPropertiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A934DB61FA76A9D006C4198 /* EditPropertiesViewController.swift */; };
 		8A9D57241FA718070097A992 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D57231FA718070097A992 /* AppDelegate.swift */; };
@@ -32,10 +29,7 @@
 		6D4B2B02A85E67FB8023881B /* Pods-DiscountApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DiscountApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-DiscountApp/Pods-DiscountApp.release.xcconfig"; sourceTree = "<group>"; };
 		8A10DCF31FA78AB8002D1439 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8A5EE0CF1FA9D6A0003DC6C3 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		8A77F3611FB37A6D006C057D /* SegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControl.swift; sourceTree = "<group>"; };
 		8A884E241FB1BA8A0046CA25 /* PageImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageImageViewController.swift; sourceTree = "<group>"; };
-		8A884E261FB1FCAA0046CA25 /* PageBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageBackViewController.swift; sourceTree = "<group>"; };
-		8A884E291FB1FCC10046CA25 /* BarCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCodeViewController.swift; sourceTree = "<group>"; };
 		8A934DB01FA746BC006C4198 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		8A934DB61FA76A9D006C4198 /* EditPropertiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPropertiesViewController.swift; sourceTree = "<group>"; };
 		8A9D57201FA718070097A992 /* DiscountApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiscountApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,7 +104,6 @@
 		8A9D573A1FA720390097A992 /* Support files */ = {
 			isa = PBXGroup;
 			children = (
-				8A77F3611FB37A6D006C057D /* SegmentControl.swift */,
 				8A9D57231FA718070097A992 /* AppDelegate.swift */,
 				8A9D572F1FA718070097A992 /* LaunchScreen.storyboard */,
 				8A9D572D1FA718070097A992 /* Assets.xcassets */,
@@ -123,8 +116,6 @@
 			children = (
 				8AA84A8B1FAF600A00D4B57D /* PageViewController.swift */,
 				8A884E241FB1BA8A0046CA25 /* PageImageViewController.swift */,
-				8A884E261FB1FCAA0046CA25 /* PageBackViewController.swift */,
-				8A884E291FB1FCC10046CA25 /* BarCodeViewController.swift */,
 			);
 			path = PageVC;
 			sourceTree = "<group>";
@@ -266,7 +257,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A884E271FB1FCAA0046CA25 /* PageBackViewController.swift in Sources */,
 				8AA84A891FAF218E00D4B57D /* PopoverViewController.swift in Sources */,
 				8A5EE0D11FA9D6A0003DC6C3 /* Card.swift in Sources */,
 				8A934DB71FA76A9D006C4198 /* EditPropertiesViewController.swift in Sources */,
@@ -275,8 +265,6 @@
 				8A934DB11FA746BC006C4198 /* TableViewCell.swift in Sources */,
 				8A10DCF41FA78AB8002D1439 /* MainViewController.swift in Sources */,
 				8AA84A8C1FAF600A00D4B57D /* PageViewController.swift in Sources */,
-				8A884E2A1FB1FCC10046CA25 /* BarCodeViewController.swift in Sources */,
-				8A77F3621FB37A6D006C057D /* SegmentControl.swift in Sources */,
 				8A9D57241FA718070097A992 /* AppDelegate.swift in Sources */,
 				8AE32FBE1FA87CC700487239 /* CardManager.swift in Sources */,
 			);

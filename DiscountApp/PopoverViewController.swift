@@ -41,6 +41,6 @@ protocol SortedDelegate {
 enum sortedTap {
     case sortFromAtoZ
     case sortFromZtoA
-    case dateUp// = "Date ⬆︎"
-    case dateDown //= "Date ⬇︎"
+    case dateUp
+    case dateDown 
 }
