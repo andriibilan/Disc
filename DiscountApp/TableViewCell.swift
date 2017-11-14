@@ -17,8 +17,12 @@ class TableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        imagePrototype.layer.cornerRadius = imagePrototype.frame.width/10.0
+        imagePrototype.layer.borderWidth = 2
+        imagePrototype.layer.borderColor = UIColor.red.cgColor
+        
     }
+    
     
 //    var imageURl: URL? {
 //        didSet {

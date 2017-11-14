@@ -52,7 +52,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         if let imageViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PageImageViewController") as? PageImageViewController {
             imageViewController.imagePage = imageArray[index]!
             imageViewController.index = index
-            imageViewController.arrayCard = cardPage
             return imageViewController
         }
         
@@ -84,10 +83,11 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
                                direction: .forward,
                                animated: true,
                                completion: nil)}
+       self.navigationItem.configureDefaultNavigationBarAppearance()
     }
 
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        self.pageControl.pageIndicatorTintColor = UIColor.green
+        self.pageControl.pageIndicatorTintColor = UIColor.yellow
        // self.pageControl.backgroundColor = UIColor.
         self.pageControl.currentPageIndicatorTintColor = UIColor.red
         return pageCount
@@ -102,6 +102,14 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         // Dispose of any resources that can be recreated.
     }
 
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if  segue.identifier == "showEditforPage" {
+            let editViewController = segue.destination as! EditPropertiesViewController
+            editViewController.cardEdit = cardPage
+        }
+    }
+    
 }
 
 

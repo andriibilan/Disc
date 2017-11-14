@@ -9,7 +9,7 @@ import CoreImage
 import UIKit
 import RSBarcodes_Swift
 import AVFoundation
-class EditPropertiesViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EditPropertiesViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate , UITextFieldDelegate, UITextViewDelegate {
     
     var card = CardManager()
     var imageIs = ""
@@ -18,15 +18,33 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
     @IBOutlet weak var frontImage: UIImageView!
     @IBOutlet weak var backImage: UIImageView!
     @IBOutlet weak var barCodeImage: UIImageView?
-    @IBOutlet weak var barCodeText: UITextField!
     @IBOutlet weak var cardDescription: UITextView?
     @IBOutlet weak var SegmentFilter: UISegmentedControl!
+    
+    
+
+    @IBOutlet weak var barCodeTextField: UITextField!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.frontImage.isUserInteractionEnabled = true
         self.backImage.isUserInteractionEnabled = true
+        self.barCodeImage?.isUserInteractionEnabled = true
+      
+        self.navigationItem.configureDefaultNavigationBarAppearance()
+        let backgroindImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroindImage.image = #imageLiteral(resourceName: "black_light_dark_figures_73356_1080x1920")
+        self.view.insertSubview(backgroindImage, at: 0)
+    
+        frontImage.getCornerRadius()
+        backImage.getCornerRadius()
+        barCodeImage?.getCornerRadius()
+        cardDescription?.getCornerRadius()
+        cardName.getCornerRadius()
+        barCodeTextField.getCornerRadius()
+        SegmentFilter.getCornerRadius()
+        
         
         if let cardChange = cardEdit {
             self.cardName.text = cardChange.cardName
@@ -38,19 +56,32 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
         }
     }
     
-    @IBAction func generateBarCode(_ sender: Any) {
-         if barCodeText.text != nil && barCodeText.text != "" {
-        barCodeImage?.image = RSUnifiedCodeGenerator.shared.generateCode(barCodeText.text!, machineReadableCodeObjectType: AVMetadataObject.ObjectType.ean13.rawValue)
-         }else{
+
+    @IBAction func barCodeGenerate(_ sender: Any) {
+        
+        let allertController = UIAlertController(title: "Generate Barcode", message: "Please write 13 symbols for generate barcode", preferredStyle: .alert)
+        
+        allertController.addTextField { (textfield) in textfield.text = "" }
+        allertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (alert: UIAlertAction) in
+            let  barCodeText = allertController.textFields![0]
+            self.barCodeTextField.text = barCodeText.text
+            if barCodeText.text != nil && barCodeText.text != "" {
+                self.barCodeImage?.image = RSUnifiedCodeGenerator.shared.generateCode(barCodeText.text!, machineReadableCodeObjectType: AVMetadataObject.ObjectType.ean13.rawValue)
+            } else {
                 let alertController = UIAlertController(title: "Error", message: "You should to write 13 symbols for generate barcode", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alertController, animated: true, completion: nil)
-                
             }
-        }
+            
+        }))
     
+    let allertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        allertController.addAction(allertAction)
+        self.present(allertController, animated: true, completion: nil)
+    }
+ 
     @IBAction func createCard(_ sender: Any) {
-        if  cardName.text != "" &&  frontImage.image != nil && backImage.image != nil {
+        if  cardName.text != "" &&  frontImage.image != #imageLiteral(resourceName: "Design - Front") && backImage.image != #imageLiteral(resourceName: "Design - Back") {
             if cardEdit != nil {
                 card.editCard( card: cardEdit!,
                                name: cardName.text!,
@@ -76,9 +107,7 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
-        
-        
-        
+
 
     }
     
@@ -95,6 +124,7 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         pickerController.allowsEditing = true
+        
         
         let alertController = UIAlertController(title: "Add a Picture", message: "Choose From", preferredStyle: .actionSheet)
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
@@ -134,7 +164,7 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         self.dismiss(animated: true, completion: nil)
-        let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        let image = info[UIImagePickerControllerEditedImage] as? UIImage
         if  imageIs == "frontImage" {
             self.frontImage?.image = image
         }else{
@@ -147,4 +177,23 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
         picker.dismiss(animated: true, completion: nil)
     }
 
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        cardName.resignFirstResponder()
+        barCodeTextField.resignFirstResponder()
+        return (true)
+    }
+//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        guard cardDescription?.text != "" else {
+//            return false
+//        }
+//     // let newText = (cardDescription!.text as NSString).replacingCharacters(in: range, with: text)
+//        let numberOfChars = cardDescription?.text.characters.count
+//        return numberOfChars! < 140
+//
+//    }
+    
 }

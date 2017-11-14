@@ -10,33 +10,35 @@ import UIKit
 
 class PageImageViewController: UIViewController {
     var card = CardManager()
-    var arrayCard:Card?
+  //  var arrayCard:Card?
+    @IBOutlet weak var showPageImage: UIImageView!
     var imagePage: String = ""
     var index = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        showView(imagePage)
-        
+   
+     showView(imagePage)
+       
+        let backgroindImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroindImage.backgroundColor = UIColor.black
+        self.view.insertSubview(backgroindImage, at: 0)
+    
     }
-    
-    
-    
-    
+  
     func showView(_ imageStr: String) {
         let imageForPaging = UIImageView(image: card.loadImageFromPath(path: imageStr))
         imageForPaging.transform = imageForPaging.transform.rotated(by: CGFloat(-Double.pi / 2))
+         imageForPaging.layer.cornerRadius = 50
+         imageForPaging.layer.borderWidth = 2
+         imageForPaging.layer.borderColor = UIColor.red.cgColor
+        imageForPaging.clipsToBounds = true
         let newWidth = UIScreen.main.bounds.width - 20
         let newHeight = newWidth / 0.68
-        imageForPaging.frame = CGRect(x: 10, y: 80, width: newWidth, height: newHeight)
+        imageForPaging.frame = CGRect(x: 10, y: 20, width: newWidth, height: newHeight)
+
         view.addSubview(imageForPaging)
+
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if  segue.identifier == "showEditforPage" {
-            let editViewController = segue.destination as! EditPropertiesViewController
-            editViewController.cardEdit = arrayCard
-        }
-    }
+   
 }
 

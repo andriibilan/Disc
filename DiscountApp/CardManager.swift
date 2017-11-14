@@ -16,7 +16,7 @@ class CardManager: NSObject {
         let context = getContext()
         let entity = NSEntityDescription.entity(forEntityName: "Card", in: context)
         let newCard = NSManagedObject(entity: entity!, insertInto: context)
-       // if descript != "" && barCode != nil {
+      
             newCard.setValue(name, forKey: "cardName")
             newCard.setValue(descript, forKey: "cardDescription")
             newCard.setValue(date, forKey: "cardDate")
@@ -76,7 +76,7 @@ class CardManager: NSObject {
         
     }
     func addToUrl (_ photo: UIImage? )  -> String {
-        guard photo != nil else {
+        guard photo != #imageLiteral(resourceName: "Design - Barcode") else {
             return ""
         }
         let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
@@ -122,16 +122,7 @@ class CardManager: NSObject {
         return appDelegate.persistentContainer.viewContext
         
     }
-    
-//    func storeObj(){
-//        let context = getContext()
-//        let entity = NSEntityDescription.entity(forEntityName: "Card", in: context)
-//
-//        let  manageObj = NSManagedObject(entity: entity!, insertInto: context)
-//
-//
-//    }
-    
+
     func saveData(){
         do {
             try getContext().save()
@@ -167,16 +158,6 @@ class CardManager: NSObject {
         
         
     }
- 
-    
-   
-    
+  
     
 }
-
-
-
-
-
-
-

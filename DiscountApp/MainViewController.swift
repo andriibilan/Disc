@@ -9,9 +9,8 @@
 import UIKit
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, SortedDelegate {
-    var filter: String = ""
+    var filter = ""
     var card = CardManager()
-  
     var  cardArray: [Card] = []
     @IBOutlet weak var prototypeTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -30,7 +29,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 2:
             cardArray = card.fetchData(filter: "Food")
             prototypeTableView.reloadData()
-              print(cardArray)
+              
         case 3:
             cardArray = card.fetchData(filter: "Cafe")
             prototypeTableView.reloadData()
@@ -73,10 +72,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             cardArray.sort() {  $0.cardName.lowercased() > $1.cardName.lowercased() }
             prototypeTableView.reloadData()
         case .dateUp:
-            cardArray.sort() { $0.cardDate! < $1.cardDate! }
+            cardArray.sort() { $0.cardDate < $1.cardDate }
             prototypeTableView.reloadData()
         case .dateDown:
-            cardArray.sort() { $0.cardDate! > $1.cardDate! }
+            cardArray.sort() { $0.cardDate > $1.cardDate}
             prototypeTableView.reloadData()
             
         }
@@ -94,12 +93,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     //  print(cardArray)
         cell.name.text = cardCell.cardName
         cell.cardDescription?.text = cardCell.cardDescription
-        cell.date?.text = card.dateConvert(cardCell.cardDate!)
+        cell.date?.text = card.dateConvert(cardCell.cardDate)
  
         cell.imagePrototype.image = card.loadImageFromPath(path: cardCell.cardFrontImage)
       
-        
-        
+       cell.selectionStyle = UITableViewCellSelectionStyle.none
+       cell.backgroundColor = UIColor.clear
 //        imageCache.obtainImageWithPath(imagePath: cardCell.cardFrontImage! ){ (image) in
 //            // Before assigning the image, check whether the current cell is visible
 //            if let updateCell = tableView.cellForRow(at: indexPath) {
@@ -127,24 +126,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        self.performSegue(withIdentifier: "show Paging", sender: self.cardArray[indexPath.row])
+//        let selectedCell = tableView.cellForRow(at: indexPath)
+//        selectedCell?.contentView.backgroundColor = UIColor.clear
     }
+   
     
-    
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (rowAction, indexPath) in
-            //TODO:
-            self.performSegue(withIdentifier: "Show Edit", sender: self.cardArray[indexPath.row])
-        }
-        editAction.backgroundColor = .blue
-        
-        let shareAction = UITableViewRowAction(style: .normal, title: "Share") { (rowAction, indexPath) in
-            //TODO:
-        }
-        shareAction.backgroundColor = .green
-        
-        let deleteAction = UITableViewRowAction(style: .normal , title: "Delete") { (rowAction, indexPath) in
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .normal, title: "") { action, sourceView, completionHandler  in
+ 
             let cardID = self.cardArray[indexPath.row]
             self.card.getContext().delete(cardID)
             (UIApplication.shared.delegate as! AppDelegate).saveContext()
@@ -154,12 +143,97 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 print(error)
             }
             self.prototypeTableView.reloadData()
+            completionHandler(true)
         }
-        deleteAction.backgroundColor = .red
+        let share = UIContextualAction(style: .normal, title: "") { action, sourceView, completionHandler  in
+          
+            self.shareData(index: indexPath)
+            
+            completionHandler(true)
+        }
         
-        return [editAction, shareAction, deleteAction]
-    }
+        let edit = UIContextualAction(style: .normal, title: "") { action, sourceView, completionHandler  in
 
+            self.performSegue(withIdentifier: "Show Edit", sender: self.cardArray[indexPath.row])
+            
+            completionHandler(true)
+        }
+        edit.backgroundColor = .cRed
+        delete.backgroundColor = .cRed
+        share.backgroundColor = .cRed
+        delete.image = #imageLiteral(resourceName: "rsz_qslecfcggxicbdlbcpfi")
+        share.image = #imageLiteral(resourceName: "rsz_1rsz_share")
+        edit.image = #imageLiteral(resourceName: "rsz_dovyxaclbbfixgvidylk")
+        
+        let config = UISwipeActionsConfiguration(actions: [edit,share,delete])
+        config.performsFirstActionWithFullSwipe = false
+ 
+        return config
+
+    }
+    
+
+
+
+//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//
+//
+//        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (rowAction, indexPath) in
+//            //TODO:
+//            self.performSegue(withIdentifier: "Show Edit", sender: self.cardArray[indexPath.row])
+//        }
+//        editAction.backgroundColor = UIColor.cOrange
+//
+//        
+//
+//        let shareAction = UITableViewRowAction(style: .normal, title: "Share") { (rowAction, indexPath) in
+//            //TODO:
+//            self.shareData(index: indexPath)
+//        }
+//        shareAction.backgroundColor = UIColor.cBlue
+//
+//
+//
+//        
+//        let deleteAction = UITableViewRowAction(style: .normal , title: "Delete") { (rowAction, indexPath) in
+//            let cardID = self.cardArray[indexPath.row]
+//            self.card.getContext().delete(cardID)
+//            (UIApplication.shared.delegate as! AppDelegate).saveContext()
+//            do{
+//                self.cardArray = try self.card.getContext().fetch(Card.fetchRequest()) as! [Card]
+//            } catch{
+//                print(error)
+//            }
+//            self.prototypeTableView.reloadData()
+//        }
+//        deleteAction.backgroundColor = UIColor.cRed
+//        return [editAction, shareAction, deleteAction]
+//    }
+
+    func shareData(index: IndexPath) {
+     
+        let  shareArray = cardArray[index.row]
+        let share = [card.loadImageFromPath(path: shareArray.cardFrontImage) , card.loadImageFromPath(path: shareArray.cardBackImage) , card.loadImageFromPath(path: shareArray.cardBarCode!)]
+        let activityVC = UIActivityViewController(activityItems: [shareArray.cardName, share], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.view
+        self.present(activityVC, animated: true, completion: nil)
+        
+        
+//        let allertController = UIAlertController(title: "Share", message: "Choose social media", preferredStyle: .actionSheet)
+//        let shareImessage = UIAlertAction(title: "iMessage", style: .default) {(action) in
+//            print("shareImessage")
+//        }
+//
+//        let shareMail = UIAlertAction(title: "Mail", style: .default) {(action) in
+//            print("shareMail")
+//        }
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+//
+//        allertController.addAction(shareImessage)
+//        allertController.addAction(shareMail)
+//        allertController.addAction(cancelAction)
+//        present(allertController, animated: true, completion: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
        cardArray = card.fetchData(filter: filter)
@@ -168,12 +242,33 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         prototypeTableView.dataSource = self
         searchBar.delegate = self
         
+        
+        self.prototypeTableView.backgroundColor = UIColor.clear
+     //  let tableImage = UIImageView(image: #imageLiteral(resourceName: "black_light_dark_figures_73356_1080x1920"))
+      //  self.prototypeTableView.backgroundView = tableImage
+        
+
+        self.searchBar.setPlaceholderTextColorTo(color: UIColor.red)
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).textColor = UIColor.red
+
+       
+        let backgroindImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroindImage.image = #imageLiteral(resourceName: "black_light_dark_figures_73356_1080x1920")
+        self.view.insertSubview(backgroindImage, at: 0)
+        let segmentControl = UISegmentedControl.self
+        //let titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        segmentControl.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.white], for: .selected)
+        
+        
+        
+        self.navigationItem.configureDefaultNavigationBarAppearance()
 //        let memoryCapacity = 5 * 1024 * 1024
 //        let diskCapacity = 5 * 1024 * 1024
 //        let urlCache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "MyDiskCache")
 //        URLCache.shared = urlCache
     }
     
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
@@ -187,10 +282,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             case "show Paging" :
                 //let navigationController = segue.destination as? UINavigationController
                 let pagingViewController = segue.destination as! PageViewController
-                  //  navigationController?.topViewController as! PageViewController
                 pagingViewController.cardPage =  sender as? Card
+                
+                
                 //                let pagingViewController = segue.destination as! PageViewController
             //                pagingViewController.cardPage =  sender as? Card
+                
+                
+//            case "showShare":
+//                let shareViewController = segue.destination as! ShareViewController
+//                shareViewController.shareCard = sender as? Card
             default :  break
                 
                 
