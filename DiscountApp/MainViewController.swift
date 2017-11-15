@@ -175,7 +175,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
      
         let  shareArray = cardArray[index.row]
         let share = [card.loadImageFromPath(path: shareArray.cardFrontImage) , card.loadImageFromPath(path: shareArray.cardBackImage) , card.loadImageFromPath(path: shareArray.cardBarCode)]
-        let activityVC = UIActivityViewController(activityItems: [shareArray.cardName, share], applicationActivities: nil)
+        let activityVC = UIActivityViewController(activityItems: [shareArray.cardName,card.loadImageFromPath(path: shareArray.cardFrontImage) , card.loadImageFromPath(path: shareArray.cardBackImage) , card.loadImageFromPath(path: shareArray.cardBarCode) ], applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = self.view
         self.present(activityVC, animated: true, completion: nil)
 

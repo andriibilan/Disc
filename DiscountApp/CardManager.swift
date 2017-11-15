@@ -12,7 +12,7 @@ class CardManager: NSObject {
     
     
     
-    func createCard( name: String , descript: String? , date: Date ,frontImage: UIImage , backImage: UIImage , barCode: UIImage, filter: String){
+    func createCard( name: String , descript: String? , date: Date ,frontImage: UIImage , backImage: UIImage , barCode: UIImage?, filter: String){
         let context = getContext()
         let entity = NSEntityDescription.entity(forEntityName: "Card", in: context)
         let newCard = NSManagedObject(entity: entity!, insertInto: context)
@@ -22,7 +22,7 @@ class CardManager: NSObject {
             newCard.setValue(date, forKey: "cardDate")
             newCard.setValue(addToUrl(frontImage), forKey: "cardFrontImage")
             newCard.setValue(addToUrl(backImage), forKey: "cardBackImage")
-            newCard.setValue(addToUrl(barCode), forKey: "cardBarCode")
+        newCard.setValue(addToUrl(barCode), forKey: "cardBarCode")
             newCard.setValue(filter, forKey: "cardFilter")
          saveData()
         
@@ -31,7 +31,7 @@ class CardManager: NSObject {
     }
     
     
-    func editCard(card: Card, name: String , descript: String? , date: Date, frontImage: UIImage , backImage: UIImage, barCode: UIImage, filter: String){
+    func editCard(card: Card, name: String , descript: String? , date: Date, frontImage: UIImage , backImage: UIImage, barCode: UIImage?, filter: String){
         card.cardName = name
         card.cardDescription = descript
         card.cardDate = date
@@ -75,8 +75,8 @@ class CardManager: NSObject {
         
         
     }
-    func addToUrl (_ photo: UIImage )  -> String {
-        guard photo != #imageLiteral(resourceName: "Design - Barcode") else {
+    func addToUrl (_ photo: UIImage? )  -> String {
+        guard photo != #imageLiteral(resourceName: "Design - Barcode") && photo != nil else {
             return ""
         }
         let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
@@ -86,7 +86,7 @@ class CardManager: NSObject {
         print(imageString)
         do{
            // if photo != nil {
-            try UIImageJPEGRepresentation(photo, 1.0)?.write(to: imgPath, options: .atomic)
+            try UIImageJPEGRepresentation(photo!, 1.0)?.write(to: imgPath, options: .atomic)
            // }
         }catch let error{
             print(error.localizedDescription)
