@@ -88,7 +88,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
 
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         self.pageControl.pageIndicatorTintColor = UIColor.yellow
-       // self.pageControl.backgroundColor = UIColor.
+        self.pageControl.backgroundColor = UIColor.black
         self.pageControl.currentPageIndicatorTintColor = UIColor.red
         return pageCount
     }

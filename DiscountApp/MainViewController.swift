@@ -126,8 +126,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        self.performSegue(withIdentifier: "show Paging", sender: self.cardArray[indexPath.row])
-//        let selectedCell = tableView.cellForRow(at: indexPath)
-//        selectedCell?.contentView.backgroundColor = UIColor.clear
+
     }
    
     
@@ -171,68 +170,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         return config
 
     }
-    
-
-
-
-//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//
-//
-//        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (rowAction, indexPath) in
-//            //TODO:
-//            self.performSegue(withIdentifier: "Show Edit", sender: self.cardArray[indexPath.row])
-//        }
-//        editAction.backgroundColor = UIColor.cOrange
-//
-//        
-//
-//        let shareAction = UITableViewRowAction(style: .normal, title: "Share") { (rowAction, indexPath) in
-//            //TODO:
-//            self.shareData(index: indexPath)
-//        }
-//        shareAction.backgroundColor = UIColor.cBlue
-//
-//
-//
-//        
-//        let deleteAction = UITableViewRowAction(style: .normal , title: "Delete") { (rowAction, indexPath) in
-//            let cardID = self.cardArray[indexPath.row]
-//            self.card.getContext().delete(cardID)
-//            (UIApplication.shared.delegate as! AppDelegate).saveContext()
-//            do{
-//                self.cardArray = try self.card.getContext().fetch(Card.fetchRequest()) as! [Card]
-//            } catch{
-//                print(error)
-//            }
-//            self.prototypeTableView.reloadData()
-//        }
-//        deleteAction.backgroundColor = UIColor.cRed
-//        return [editAction, shareAction, deleteAction]
-//    }
 
     func shareData(index: IndexPath) {
      
         let  shareArray = cardArray[index.row]
-        let share = [card.loadImageFromPath(path: shareArray.cardFrontImage) , card.loadImageFromPath(path: shareArray.cardBackImage) , card.loadImageFromPath(path: shareArray.cardBarCode!)]
+        let share = [card.loadImageFromPath(path: shareArray.cardFrontImage) , card.loadImageFromPath(path: shareArray.cardBackImage) , card.loadImageFromPath(path: shareArray.cardBarCode)]
         let activityVC = UIActivityViewController(activityItems: [shareArray.cardName, share], applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = self.view
         self.present(activityVC, animated: true, completion: nil)
-        
-        
-//        let allertController = UIAlertController(title: "Share", message: "Choose social media", preferredStyle: .actionSheet)
-//        let shareImessage = UIAlertAction(title: "iMessage", style: .default) {(action) in
-//            print("shareImessage")
-//        }
-//
-//        let shareMail = UIAlertAction(title: "Mail", style: .default) {(action) in
-//            print("shareMail")
-//        }
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
-//
-//        allertController.addAction(shareImessage)
-//        allertController.addAction(shareMail)
-//        allertController.addAction(cancelAction)
-//        present(allertController, animated: true, completion: nil)
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()

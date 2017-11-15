@@ -18,6 +18,6 @@ public class Card: NSManagedObject {
     @NSManaged public var cardName: String
     @NSManaged public var cardFrontImage: String
     @NSManaged public var cardBackImage: String
-    @NSManaged public var cardBarCode: String?
+    @NSManaged public var cardBarCode: String
     @NSManaged public var cardFilter: String
 }

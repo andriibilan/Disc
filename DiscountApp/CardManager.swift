@@ -12,7 +12,7 @@ class CardManager: NSObject {
     
     
     
-    func createCard( name: String , descript: String? , date: Date ,frontImage: UIImage , backImage: UIImage , barCode: UIImage?, filter: String){
+    func createCard( name: String , descript: String? , date: Date ,frontImage: UIImage , backImage: UIImage , barCode: UIImage, filter: String){
         let context = getContext()
         let entity = NSEntityDescription.entity(forEntityName: "Card", in: context)
         let newCard = NSManagedObject(entity: entity!, insertInto: context)
@@ -31,13 +31,13 @@ class CardManager: NSObject {
     }
     
     
-    func editCard(card: Card, name: String , descript: String? , date: Date, frontImage: UIImage , backImage: UIImage, barCode: UIImage?, filter: String){
+    func editCard(card: Card, name: String , descript: String? , date: Date, frontImage: UIImage , backImage: UIImage, barCode: UIImage, filter: String){
         card.cardName = name
         card.cardDescription = descript
         card.cardDate = date
         card.cardFrontImage = addToUrl(frontImage)
         card.cardBackImage = addToUrl(backImage)
-        card.cardBarCode = addToUrl(barCode!)
+        card.cardBarCode = addToUrl(barCode)
         card.cardFilter = filter
       
         saveData()
@@ -75,7 +75,7 @@ class CardManager: NSObject {
         
         
     }
-    func addToUrl (_ photo: UIImage? )  -> String {
+    func addToUrl (_ photo: UIImage )  -> String {
         guard photo != #imageLiteral(resourceName: "Design - Barcode") else {
             return ""
         }
@@ -86,7 +86,7 @@ class CardManager: NSObject {
         print(imageString)
         do{
            // if photo != nil {
-            try UIImageJPEGRepresentation(photo!, 1.0)?.write(to: imgPath, options: .atomic)
+            try UIImageJPEGRepresentation(photo, 1.0)?.write(to: imgPath, options: .atomic)
            // }
         }catch let error{
             print(error.localizedDescription)
@@ -107,7 +107,7 @@ class CardManager: NSObject {
         let imageURL = URL(fileURLWithPath: documentDirectoryPath.appendingPathComponent(path))
         do {
             let imageData = try Data(contentsOf: imageURL)
-            return UIImage(data: imageData)
+            return UIImage(data: imageData)!
         } catch {
             print(error.localizedDescription)
         }

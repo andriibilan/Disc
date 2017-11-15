@@ -19,19 +19,17 @@ class PageImageViewController: UIViewController {
    
      showView(imagePage)
        
-        let backgroindImage = UIImageView(frame: UIScreen.main.bounds)
-        backgroindImage.backgroundColor = UIColor.black
-        self.view.insertSubview(backgroindImage, at: 0)
+//        let backgroindImage = UIImageView(frame: UIScreen.main.bounds)
+//        backgroindImage.backgroundColor = UIColor.black
+//        self.view.insertSubview(backgroindImage, at: 0)
     
     }
   
     func showView(_ imageStr: String) {
         let imageForPaging = UIImageView(image: card.loadImageFromPath(path: imageStr))
         imageForPaging.transform = imageForPaging.transform.rotated(by: CGFloat(-Double.pi / 2))
-         imageForPaging.layer.cornerRadius = 50
-         imageForPaging.layer.borderWidth = 2
-         imageForPaging.layer.borderColor = UIColor.red.cgColor
-        imageForPaging.clipsToBounds = true
+         imageForPaging.setCorner(radius: 50)
+        imageForPaging.layer.borderColor = UIColor.red.cgColor
         let newWidth = UIScreen.main.bounds.width - 20
         let newHeight = newWidth / 0.68
         imageForPaging.frame = CGRect(x: 10, y: 20, width: newWidth, height: newHeight)

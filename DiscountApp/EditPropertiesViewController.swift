@@ -17,42 +17,54 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
     @IBOutlet weak var cardName: UITextField!
     @IBOutlet weak var frontImage: UIImageView!
     @IBOutlet weak var backImage: UIImageView!
-    @IBOutlet weak var barCodeImage: UIImageView?
+    @IBOutlet weak var barCodeImage: UIImageView!
     @IBOutlet weak var cardDescription: UITextView?
     @IBOutlet weak var SegmentFilter: UISegmentedControl!
     
-    
+    @IBOutlet weak var barCodeLabel: UILabel!
 
-    @IBOutlet weak var barCodeTextField: UITextField!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.frontImage.isUserInteractionEnabled = true
         self.backImage.isUserInteractionEnabled = true
-        self.barCodeImage?.isUserInteractionEnabled = true
+        self.barCodeImage.isUserInteractionEnabled = true
       
         self.navigationItem.configureDefaultNavigationBarAppearance()
         let backgroindImage = UIImageView(frame: UIScreen.main.bounds)
         backgroindImage.image = #imageLiteral(resourceName: "black_light_dark_figures_73356_1080x1920")
         self.view.insertSubview(backgroindImage, at: 0)
     
-        frontImage.getCornerRadius()
-        backImage.getCornerRadius()
-        barCodeImage?.getCornerRadius()
-        cardDescription?.getCornerRadius()
-        cardName.getCornerRadius()
-        barCodeTextField.getCornerRadius()
-        SegmentFilter.getCornerRadius()
+//        frontImage.getCornerRadius()
+//        backImage.getCornerRadius()
+//        barCodeImage.getCornerRadius()
         
+        frontImage.setCorner(radius: 30)
+        backImage.setCorner(radius: 30)
+        barCodeImage.setCorner(radius: 30)
+        cardDescription?.setCorner(radius: 20)
+        cardName.setCorner(radius: 10)
+        barCodeLabel.setCorner(radius: 10)
+        SegmentFilter.setCorner(radius: 10)
         
         if let cardChange = cardEdit {
             self.cardName.text = cardChange.cardName
             self.cardDescription?.text = cardChange.cardDescription
             self.frontImage.image = card.loadImageFromPath(path: cardChange.cardFrontImage)
             self.backImage.image = card.loadImageFromPath(path: cardChange.cardBackImage)
-            self.barCodeImage?.image = card.loadImageFromPath(path: cardChange.cardBarCode!)
             self.SegmentFilter.selectedSegmentIndex = card.showSegment(value: cardChange.cardFilter)
+           
+            
+            guard cardChange.cardBarCode != "" else {
+               return self.barCodeImage.image = #imageLiteral(resourceName: "Design - Barcode")
+            }
+            self.barCodeImage.image = card.loadImageFromPath(path: cardChange.cardBarCode)
+//            if cardChange.cardBarCode != "" {
+//            self.barCodeImage?.image = card.loadImageFromPath(path: cardChange.cardBarCode!)
+//            }else {
+//                self.barCodeImage?.image = #imageLiteral(resourceName: "Design - Barcode")
+//            }
         }
     }
     
@@ -64,9 +76,9 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
         allertController.addTextField { (textfield) in textfield.text = "" }
         allertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (alert: UIAlertAction) in
             let  barCodeText = allertController.textFields![0]
-            self.barCodeTextField.text = barCodeText.text
+            self.barCodeLabel.text = barCodeText.text
             if barCodeText.text != nil && barCodeText.text != "" {
-                self.barCodeImage?.image = RSUnifiedCodeGenerator.shared.generateCode(barCodeText.text!, machineReadableCodeObjectType: AVMetadataObject.ObjectType.ean13.rawValue)
+                self.barCodeImage.image = RSUnifiedCodeGenerator.shared.generateCode(barCodeText.text!, machineReadableCodeObjectType: AVMetadataObject.ObjectType.ean13.rawValue)
             } else {
                 let alertController = UIAlertController(title: "Error", message: "You should to write 13 symbols for generate barcode", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -89,7 +101,7 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
                                date: Date(),
                                frontImage: frontImage.image!,
                                backImage: backImage.image!,
-                               barCode: barCodeImage?.image,
+                               barCode: barCodeImage.image!,
                                filter: card.chooseSegmentOfFilter(segment: SegmentFilter) )
             } else {
                 card.createCard( name: cardName.text!,
@@ -97,7 +109,7 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
                                  date: Date(),
                                  frontImage: frontImage.image!,
                                  backImage: backImage.image!,
-                                 barCode: barCodeImage?.image,
+                                 barCode: barCodeImage.image!,
                                  filter: card.chooseSegmentOfFilter(segment: SegmentFilter))
             }
             print()
@@ -183,7 +195,6 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         cardName.resignFirstResponder()
-        barCodeTextField.resignFirstResponder()
         return (true)
     }
 //    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

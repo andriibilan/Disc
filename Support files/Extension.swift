@@ -7,6 +7,23 @@
 //
 
 import UIKit
+
+extension UIView
+{
+    func setCorner(radius: CGFloat){
+        
+        self.layer.cornerRadius = radius
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.yellow.cgColor
+        layer.masksToBounds = true
+    }
+    
+    
+    
+    
+    
+}
+
 extension UISearchBar
 {
     func setPlaceholderTextColorTo(color: UIColor)
@@ -41,47 +58,6 @@ extension UIColor
 {
     
     static var cRed = UIColor(red: 51.0/255.0, green: 51.0/255.0, blue: 51.0/255.0, alpha: 1.0)
-}
-
-
-extension UIImageView
-{
-    func getCornerRadius(){
-        self.layer.cornerRadius = self.frame.width/10
-        layer.borderWidth = 2
-        layer.borderColor = UIColor.yellow.cgColor
-    }
-    
-}
-
-
-extension UITextView
-{
-    func getCornerRadius(){
-        self.layer.cornerRadius = self.frame.width/20
-        layer.borderWidth = 2
-        layer.borderColor = UIColor.yellow.cgColor
-    }
-}
-
-
-extension UITextField
-{
-    func getCornerRadius(){
-        self.layer.cornerRadius = self.frame.width/25
-        layer.borderWidth = 2
-        layer.borderColor = UIColor.yellow.cgColor
-    }
-    
-    
-}
-extension UISegmentedControl
-{
-    func getCornerRadius() {
-        self.layer.cornerRadius = self.frame.width/25
-        layer.borderWidth = 2
-        layer.borderColor = UIColor.yellow.cgColor
-    }
 }
 
 
