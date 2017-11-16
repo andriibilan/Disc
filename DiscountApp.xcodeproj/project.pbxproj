@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8A10DCF41FA78AB8002D1439 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10DCF31FA78AB8002D1439 /* MainViewController.swift */; };
 		8A5EE0D11FA9D6A0003DC6C3 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EE0CF1FA9D6A0003DC6C3 /* Card.swift */; };
+		8A62DBEA1FBDB2B30066339C /* TouchIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A62DBE91FBDB2B30066339C /* TouchIDViewController.swift */; };
 		8A884E251FB1BA8A0046CA25 /* PageImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A884E241FB1BA8A0046CA25 /* PageImageViewController.swift */; };
 		8A8A5CA01FBA0F8900831DE9 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8A5C9F1FBA0F8900831DE9 /* Extension.swift */; };
 		8A8A5CA21FBA1D1600831DE9 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8A5CA11FBA1D1600831DE9 /* RoundButton.swift */; };
@@ -31,6 +32,7 @@
 		6D4B2B02A85E67FB8023881B /* Pods-DiscountApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DiscountApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-DiscountApp/Pods-DiscountApp.release.xcconfig"; sourceTree = "<group>"; };
 		8A10DCF31FA78AB8002D1439 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8A5EE0CF1FA9D6A0003DC6C3 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		8A62DBE91FBDB2B30066339C /* TouchIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchIDViewController.swift; sourceTree = "<group>"; };
 		8A884E241FB1BA8A0046CA25 /* PageImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageImageViewController.swift; sourceTree = "<group>"; };
 		8A8A5C9F1FBA0F8900831DE9 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		8A8A5CA11FBA1D1600831DE9 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			children = (
 				8A5EE0CF1FA9D6A0003DC6C3 /* Card.swift */,
 				8A9D572A1FA718070097A992 /* DiscountApp.xcdatamodeld */,
+				8A62DBE91FBDB2B30066339C /* TouchIDViewController.swift */,
 				8A9D57271FA718070097A992 /* Main.storyboard */,
 				8A934DB01FA746BC006C4198 /* TableViewCell.swift */,
 				8A10DCF31FA78AB8002D1439 /* MainViewController.swift */,
@@ -268,6 +271,7 @@
 				8A5EE0D11FA9D6A0003DC6C3 /* Card.swift in Sources */,
 				8A934DB71FA76A9D006C4198 /* EditPropertiesViewController.swift in Sources */,
 				8A884E251FB1BA8A0046CA25 /* PageImageViewController.swift in Sources */,
+				8A62DBEA1FBDB2B30066339C /* TouchIDViewController.swift in Sources */,
 				8A8A5CA01FBA0F8900831DE9 /* Extension.swift in Sources */,
 				8A9D572C1FA718070097A992 /* DiscountApp.xcdatamodeld in Sources */,
 				8A934DB11FA746BC006C4198 /* TableViewCell.swift in Sources */,

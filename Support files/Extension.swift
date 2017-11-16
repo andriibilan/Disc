@@ -17,13 +17,14 @@ extension UIView
         layer.borderColor = UIColor.yellow.cgColor
         layer.masksToBounds = true
     }
-    
-    
-    
-    
-    
+    func setBackgroundImage() {
+        let backgroindImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroindImage.image = #imageLiteral(resourceName: "black_light_dark_figures_73356_1080x1920")
+       insertSubview(backgroindImage, at: 0)
+        
+        
+    }
 }
-
 extension UISearchBar
 {
     func setPlaceholderTextColorTo(color: UIColor)
@@ -38,7 +39,7 @@ extension UISearchBar
 
 extension UINavigationItem
 {
-    func configureDefaultNavigationBarAppearance ()
+    func configureTitleView()
     {
         let navBar = UINavigationBar.appearance()
         let image = #imageLiteral(resourceName: "rsz_1467be293e99ed9ef56014a02f4be2308-discount-red-rounded-by-vexels")
@@ -56,8 +57,7 @@ extension UINavigationItem
 
 extension UIColor
 {
-    
-    static var cRed = UIColor(red: 51.0/255.0, green: 51.0/255.0, blue: 51.0/255.0, alpha: 1.0)
+    static var cBlack = UIColor(red: 51.0/255.0, green: 51.0/255.0, blue: 51.0/255.0, alpha: 1.0)
 }
 
 

@@ -29,8 +29,6 @@ class PopoverViewController: UIViewController{
         delegate?.sortedCellFromPopover(.dateDown)
         dismiss(animated: true, completion: nil)
     }
-
-
 }
 
 

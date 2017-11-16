@@ -9,9 +9,7 @@
 import UIKit
 import CoreData
 class CardManager: NSObject {
-    
-    
-    
+
     func createCard( name: String , descript: String? , date: Date ,frontImage: UIImage , backImage: UIImage , barCode: UIImage?, filter: String){
         let context = getContext()
         let entity = NSEntityDescription.entity(forEntityName: "Card", in: context)
@@ -25,12 +23,8 @@ class CardManager: NSObject {
         newCard.setValue(addToUrl(barCode), forKey: "cardBarCode")
             newCard.setValue(filter, forKey: "cardFilter")
          saveData()
-        
-        print(newCard)
-       
     }
-    
-    
+
     func editCard(card: Card, name: String , descript: String? , date: Date, frontImage: UIImage , backImage: UIImage, barCode: UIImage?, filter: String){
         card.cardName = name
         card.cardDescription = descript
@@ -39,42 +33,10 @@ class CardManager: NSObject {
         card.cardBackImage = addToUrl(backImage)
         card.cardBarCode = addToUrl(barCode)
         card.cardFilter = filter
-      
         saveData()
     }
+  
     
-    func chooseSegmentOfFilter( segment: UISegmentedControl) -> String {
-      let  index = segment.selectedSegmentIndex
-        switch index {
-        case 0:
-            return "Shop"
-        case 1:
-            return "Food"
-        case 2:
-            return "Cafe"
-        case 3:
-            return "Pharmacy"
-        default:
-            return "Other"
-        }
-    }
-    
-    func showSegment(value: String) -> Int {
-        switch value {
-        case "Shop":
-           return  0
-        case "Food":
-            return  1
-        case "Cafe":
-            return  2
-        case "Pharmacy":
-            return  3
-        default:
-            return 4
-        }
-        
-        
-    }
     func addToUrl (_ photo: UIImage? )  -> String {
         guard photo != #imageLiteral(resourceName: "Design - Barcode") && photo != nil else {
             return ""
@@ -82,26 +44,18 @@ class CardManager: NSObject {
         let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
         let uuidStringforURL = UUID().uuidString + ".jpg"
         let imgPath = URL(fileURLWithPath: documentDirectoryPath.appendingPathComponent(uuidStringforURL))// Change extension if you want to save as PNG
-        let imageString = String(describing: imgPath)
-        print(imageString)
+//        let imageString = String(describing: imgPath)
+//        print(imageString)
         do{
-           // if photo != nil {
             try UIImageJPEGRepresentation(photo!, 1.0)?.write(to: imgPath, options: .atomic)
-           // }
         }catch let error{
             print(error.localizedDescription)
         }
         return uuidStringforURL
-        //return imageString
     }
 
-    func dateConvert(_ date: Date) -> String {
-       // DateFormatter.localizedString(from: (cardCell.cardDate)!, dateStyle: DateFormatter.Style.medium, timeStyle: DateFormatter.Style.short)
-      let dateAfterConvert = DateFormatter.localizedString(from: date, dateStyle: DateFormatter.Style.medium, timeStyle: DateFormatter.Style.short)
-        return dateAfterConvert
-        
-    }
-    
+
+
     func loadImageFromPath(path: String) -> UIImage? {
         let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
         let imageURL = URL(fileURLWithPath: documentDirectoryPath.appendingPathComponent(path))
@@ -114,13 +68,15 @@ class CardManager: NSObject {
         return nil
     }
 
-    
-    
-    
+    func dateConvert(_ date: Date) -> String {
+        let dateAfterConvert = DateFormatter.localizedString(from: date, dateStyle: DateFormatter.Style.medium, timeStyle: DateFormatter.Style.short)
+        return dateAfterConvert
+        }
+
     func getContext() ->NSManagedObjectContext {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.persistentContainer.viewContext
-        
+    
     }
 
     func saveData(){
@@ -131,7 +87,7 @@ class CardManager: NSObject {
             print(error.localizedDescription)
         }
     }
-    
+
     func fetchData(filter: String?) -> [Card]{
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName :"Card")
         if filter != nil && filter != ""  {
@@ -153,11 +109,43 @@ class CardManager: NSObject {
                 let cardArray: [Card] = []
                 return cardArray
             }
-            
+        }
+    }
+
+    func deleteCard(card: Card){
+        getContext().delete(card)
+         saveData()
+    }
+
+    func chooseSegmentOfFilter( segment: UISegmentedControl) -> String {
+        let  index = segment.selectedSegmentIndex
+        switch index {
+        case 0:
+            return "Shop"
+        case 1:
+            return "Food"
+        case 2:
+            return "Cafe"
+        case 3:
+            return "Pharmacy"
+        default:
+            return "Other"
+        }
+    }
+
+    func showSegment(value: String) -> Int {
+        switch value {
+        case "Shop":
+            return  0
+        case "Food":
+            return  1
+        case "Cafe":
+            return  2
+        case "Pharmacy":
+            return  3
+        default:
+            return 4
         }
         
-        
+      }
     }
-  
-    
-}

@@ -8,7 +8,6 @@
 import UIKit
 
 class TableViewCell: UITableViewCell {
-    // var imageCashe = NSCache<AnyObject, AnyObject>()
 
    @IBOutlet weak var imagePrototype: UIImageView!
     @IBOutlet weak var name: UILabel!
@@ -17,46 +16,14 @@ class TableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        imagePrototype.layer.cornerRadius = imagePrototype.frame.width/10.0
-        imagePrototype.layer.borderWidth = 2
+        
+        imagePrototype.setCorner(radius: 10)
+//        imagePrototype.layer.cornerRadius = imagePrototype.frame.width/10.0
+//        imagePrototype.layer.borderWidth = 2
         imagePrototype.layer.borderColor = UIColor.red.cgColor
         
     }
-    
-    
-//    var imageURl: URL? {
-//        didSet {
-//          //  imagePrototype?.image = nil
-//           updateUI()
-//        }
-//
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
 //    }
-//
-//    func updateUI(){
-//        //if let casheImage = imageCashe.object(forKey: )
-//        if let url = imageURl{
-//            DispatchQueue.global(qos: .userInitiated).async {
-//                let contentsOfURL = try? Data(contentsOf: url)
-//                DispatchQueue.main.async {
-//                    if url == self.imageURl{
-//                        if let imageData = contentsOfURL {
-//                            self.imagePrototype.image =  UIImage(data: imageData)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-//
-//    }
-    
-    
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//      setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
 }

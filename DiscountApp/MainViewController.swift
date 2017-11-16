@@ -14,35 +14,37 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     var  cardArray: [Card] = []
     @IBOutlet weak var prototypeTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-    
-    
 
     @IBAction func filterFromSegment(_ sender: UISegmentedControl) {
      let  indexSegment = sender.selectedSegmentIndex
         switch indexSegment {
         case 0:
-            cardArray = card.fetchData(filter: "")
+            filter = ""
+            cardArray = card.fetchData(filter: filter)
             prototypeTableView.reloadData()
         case 1:
-            cardArray = card.fetchData(filter: "Shop")
+             filter = "Shop"
+            cardArray = card.fetchData(filter: filter)
             prototypeTableView.reloadData()
         case 2:
-            cardArray = card.fetchData(filter: "Food")
+             filter = "Food"
+            cardArray = card.fetchData(filter: filter)
             prototypeTableView.reloadData()
               
         case 3:
-            cardArray = card.fetchData(filter: "Cafe")
+             filter = "Cafe"
+            cardArray = card.fetchData(filter: filter)
             prototypeTableView.reloadData()
         case 4:
-            cardArray = card.fetchData(filter: "Pharmacy")
+             filter = "Pharmacy"
+            cardArray = card.fetchData(filter: filter)
             prototypeTableView.reloadData()
         default:
-            cardArray = card.fetchData(filter: "Other")
+             filter = "Other"
+            cardArray = card.fetchData(filter: filter)
             prototypeTableView.reloadData()
         }
-    
     }
-    
     
     func filterForTableView(text: String){
         cardArray = cardArray.filter( { (mod)-> Bool in
@@ -59,7 +61,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             filterForTableView(text: searchName)
             prototypeTableView.reloadData()
-            
         }
     }
   
@@ -77,109 +78,69 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         case .dateDown:
             cardArray.sort() { $0.cardDate > $1.cardDate}
             prototypeTableView.reloadData()
-            
         }
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cardArray.count
-    } 
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell", for: indexPath) as! TableViewCell
         let cardCell = cardArray[indexPath.row]
-    //  print(cardArray)
         cell.name.text = cardCell.cardName
         cell.cardDescription?.text = cardCell.cardDescription
         cell.date?.text = card.dateConvert(cardCell.cardDate)
- 
         cell.imagePrototype.image = card.loadImageFromPath(path: cardCell.cardFrontImage)
       
+        
        cell.selectionStyle = UITableViewCellSelectionStyle.none
        cell.backgroundColor = UIColor.clear
-//        imageCache.obtainImageWithPath(imagePath: cardCell.cardFrontImage! ){ (image) in
-//            // Before assigning the image, check whether the current cell is visible
-//            if let updateCell = tableView.cellForRow(at: indexPath) {
-//                updateCell.imageView?.image = image
-//            }
-//        }
-        
-        
-        
-        
-//                if let cacheImage = imageCashe.object(forKey: card.cardName as AnyObject){
-//                    cell.imagePrototype.image = cacheImage as? UIImage
-//                } else {
-//                     cell.imageURl = URL(string: card.cardFrontImage!)
-//                    self.imageCashe.setObject(URL(string: card.cardFrontImage!) as AnyObject, forKey: card.cardName as AnyObject)
-//                }
-        
-         // cell.imageURl = URL(string: cardCell.cardFrontImage!)
-         // print("card name : \(String(describing: card.cardName))")
-         // print("card descr : \(String(describing: card.cardDescription))")
-        // print("card foto : \(String(describing: URL(string: card.cardFrontImage!)))")
-       
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        self.performSegue(withIdentifier: "show Paging", sender: self.cardArray[indexPath.row])
-
     }
    
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: "") { action, sourceView, completionHandler  in
- 
-            let cardID = self.cardArray[indexPath.row]
-            self.card.getContext().delete(cardID)
-            (UIApplication.shared.delegate as! AppDelegate).saveContext()
-            do{
-                self.cardArray = try self.card.getContext().fetch(Card.fetchRequest()) as! [Card]
-            } catch{
-                print(error)
-            }
+            self.card.deleteCard(card: self.cardArray[indexPath.row])
+            self.cardArray = self.card.fetchData(filter: self.filter)
             self.prototypeTableView.reloadData()
             completionHandler(true)
         }
         let share = UIContextualAction(style: .normal, title: "") { action, sourceView, completionHandler  in
-          
-            self.shareData(index: indexPath)
-            
+            let  shareArray = self.cardArray[indexPath.row]
+            let activityVC = UIActivityViewController(activityItems: [ shareArray.cardName ,
+                                                                       self.card.loadImageFromPath(path: shareArray.cardFrontImage) ?? #imageLiteral(resourceName: "467be293e99ed9ef56014a02f4be2308-discount-red-rounded-by-vexels") ,
+                                                                       self.card.loadImageFromPath(path: shareArray.cardBackImage) ?? #imageLiteral(resourceName: "467be293e99ed9ef56014a02f4be2308-discount-red-rounded-by-vexels") ,
+                                                                       self.card.loadImageFromPath(path: shareArray.cardBarCode) ?? #imageLiteral(resourceName: "467be293e99ed9ef56014a02f4be2308-discount-red-rounded-by-vexels")], applicationActivities: nil)
+                activityVC.popoverPresentationController?.sourceView = self.view
+            self.present(activityVC, animated: true, completion: nil)
             completionHandler(true)
         }
-        
         let edit = UIContextualAction(style: .normal, title: "") { action, sourceView, completionHandler  in
-
             self.performSegue(withIdentifier: "Show Edit", sender: self.cardArray[indexPath.row])
-            
             completionHandler(true)
         }
-        edit.backgroundColor = .cRed
-        delete.backgroundColor = .cRed
-        share.backgroundColor = .cRed
+        edit.backgroundColor = .cBlack
+        delete.backgroundColor = .cBlack
+        share.backgroundColor = .cBlack
         delete.image = #imageLiteral(resourceName: "rsz_qslecfcggxicbdlbcpfi")
         share.image = #imageLiteral(resourceName: "rsz_1rsz_share")
         edit.image = #imageLiteral(resourceName: "rsz_dovyxaclbbfixgvidylk")
-        
         let config = UISwipeActionsConfiguration(actions: [edit,share,delete])
         config.performsFirstActionWithFullSwipe = false
- 
         return config
 
     }
 
-    func shareData(index: IndexPath) {
-     
-        let  shareArray = cardArray[index.row]
-        let share = [card.loadImageFromPath(path: shareArray.cardFrontImage) , card.loadImageFromPath(path: shareArray.cardBackImage) , card.loadImageFromPath(path: shareArray.cardBarCode)]
-        let activityVC = UIActivityViewController(activityItems: [shareArray.cardName,card.loadImageFromPath(path: shareArray.cardFrontImage) , card.loadImageFromPath(path: shareArray.cardBackImage) , card.loadImageFromPath(path: shareArray.cardBarCode) ], applicationActivities: nil)
-        activityVC.popoverPresentationController?.sourceView = self.view
-        self.present(activityVC, animated: true, completion: nil)
-
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
        cardArray = card.fetchData(filter: filter)
@@ -187,31 +148,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         prototypeTableView.delegate = self
         prototypeTableView.dataSource = self
         searchBar.delegate = self
-        
-        
         self.prototypeTableView.backgroundColor = UIColor.clear
-     //  let tableImage = UIImageView(image: #imageLiteral(resourceName: "black_light_dark_figures_73356_1080x1920"))
-      //  self.prototypeTableView.backgroundView = tableImage
         
-
-        self.searchBar.setPlaceholderTextColorTo(color: UIColor.red)
+        self.searchBar.setPlaceholderTextColorTo(color: UIColor.white)
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).textColor = UIColor.red
 
-       
-        let backgroindImage = UIImageView(frame: UIScreen.main.bounds)
-        backgroindImage.image = #imageLiteral(resourceName: "black_light_dark_figures_73356_1080x1920")
-        self.view.insertSubview(backgroindImage, at: 0)
+        view.setBackgroundImage()
         let segmentControl = UISegmentedControl.self
-        //let titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         segmentControl.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.white], for: .selected)
-        
-        
-        
-        self.navigationItem.configureDefaultNavigationBarAppearance()
-//        let memoryCapacity = 5 * 1024 * 1024
-//        let diskCapacity = 5 * 1024 * 1024
-//        let urlCache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "MyDiskCache")
-//        URLCache.shared = urlCache
+
+        self.navigationItem.configureTitleView()
     }
     
 
@@ -226,21 +172,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 popoverViewController.delegate = self
                 popoverViewController.popoverPresentationController?.delegate = self
             case "show Paging" :
-                //let navigationController = segue.destination as? UINavigationController
                 let pagingViewController = segue.destination as! PageViewController
                 pagingViewController.cardPage =  sender as? Card
-                
-                
-                //                let pagingViewController = segue.destination as! PageViewController
-            //                pagingViewController.cardPage =  sender as? Card
-                
-                
-//            case "showShare":
-//                let shareViewController = segue.destination as! ShareViewController
-//                shareViewController.shareCard = sender as? Card
-            default :  break
-                
-                
+            default :
+                break
             }
         }
     }
@@ -249,8 +184,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         return UIModalPresentationStyle.none
     }
 
- 
-    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+         self.searchBar.endEditing(true)
+    }
 }
 
 

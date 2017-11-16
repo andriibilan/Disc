@@ -10,7 +10,6 @@ import UIKit
 import RSBarcodes_Swift
 import AVFoundation
 class EditPropertiesViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate , UITextFieldDelegate, UITextViewDelegate {
-    
     var card = CardManager()
     var imageIs = ""
     var cardEdit:Card?
@@ -20,32 +19,24 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
     @IBOutlet weak var barCodeImage: UIImageView?
     @IBOutlet weak var cardDescription: UITextView?
     @IBOutlet weak var SegmentFilter: UISegmentedControl!
-    
-    @IBOutlet weak var barCodeLabel: UILabel!
 
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.frontImage.isUserInteractionEnabled = true
         self.backImage.isUserInteractionEnabled = true
         self.barCodeImage?.isUserInteractionEnabled = true
       
-        self.navigationItem.configureDefaultNavigationBarAppearance()
-        let backgroindImage = UIImageView(frame: UIScreen.main.bounds)
-        backgroindImage.image = #imageLiteral(resourceName: "black_light_dark_figures_73356_1080x1920")
-        self.view.insertSubview(backgroindImage, at: 0)
-    
-//        frontImage.getCornerRadius()
-//        backImage.getCornerRadius()
-//        barCodeImage.getCornerRadius()
+        cardName.delegate = self
+        cardDescription?.delegate = self
+        self.navigationItem.configureTitleView()
         
+         view.setBackgroundImage()
+
         frontImage.setCorner(radius: 30)
         backImage.setCorner(radius: 30)
         barCodeImage?.setCorner(radius: 30)
         cardDescription?.setCorner(radius: 20)
         cardName.setCorner(radius: 10)
-        barCodeLabel.setCorner(radius: 10)
         SegmentFilter.setCorner(radius: 10)
         
         if let cardChange = cardEdit {
@@ -54,39 +45,28 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
             self.frontImage.image = card.loadImageFromPath(path: cardChange.cardFrontImage)
             self.backImage.image = card.loadImageFromPath(path: cardChange.cardBackImage)
             self.SegmentFilter.selectedSegmentIndex = card.showSegment(value: cardChange.cardFilter)
-           
-            
             guard cardChange.cardBarCode != "" else {
                 return self.barCodeImage!.image = #imageLiteral(resourceName: "Design - Barcode")
             }
             self.barCodeImage?.image = card.loadImageFromPath(path: cardChange.cardBarCode)
-//            if cardChange.cardBarCode != "" {
-//            self.barCodeImage?.image = card.loadImageFromPath(path: cardChange.cardBarCode!)
-//            }else {
-//                self.barCodeImage?.image = #imageLiteral(resourceName: "Design - Barcode")
-//            }
         }
     }
-    
+
 
     @IBAction func barCodeGenerate(_ sender: Any) {
-        
         let allertController = UIAlertController(title: "Generate Barcode", message: "Please write 13 symbols for generate barcode", preferredStyle: .alert)
-        
         allertController.addTextField { (textfield) in textfield.text = "" }
         allertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (alert: UIAlertAction) in
             let  barCodeText = allertController.textFields![0]
-            self.barCodeLabel.text = barCodeText.text
-            if barCodeText.text != nil && barCodeText.text != "" {
+            if   barCodeText.text!.count == 13 {
                 self.barCodeImage?.image = RSUnifiedCodeGenerator.shared.generateCode(barCodeText.text!, machineReadableCodeObjectType: AVMetadataObject.ObjectType.ean13.rawValue)
             } else {
                 let alertController = UIAlertController(title: "Error", message: "You should to write 13 symbols for generate barcode", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alertController, animated: true, completion: nil)
+                self.barCodeImage?.image = #imageLiteral(resourceName: "Design - Barcode")
             }
-            
         }))
-    
     let allertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         allertController.addAction(allertAction)
         self.present(allertController, animated: true, completion: nil)
@@ -112,15 +92,12 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
                                  barCode: barCodeImage?.image,
                                  filter: card.chooseSegmentOfFilter(segment: SegmentFilter))
             }
-            print()
+           
         }else {
             let alertController = UIAlertController(title: "OOPS", message: "You need to give all the informations required to save this card", preferredStyle: .alert)
-            
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
-
-
     }
     
     @IBAction func tapToFrontImage(_ sender: Any) {
@@ -136,8 +113,7 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         pickerController.allowsEditing = true
-        
-        
+
         let alertController = UIAlertController(title: "Add a Picture", message: "Choose From", preferredStyle: .actionSheet)
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
             if(UIImagePickerController.isSourceTypeAvailable(.camera)){
@@ -148,30 +124,23 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alertController, animated: true, completion: nil)
             }
-            
         }
         let photosLibraryAction = UIAlertAction(title: "Photos Library", style: .default) { (action) in
             pickerController.sourceType = .photoLibrary
             self.present(pickerController, animated: true, completion: nil)
-            
         }
-        
         let savedPhotosAction = UIAlertAction(title: "Saved Photos Album", style: .default) { (action) in
             pickerController.sourceType = .savedPhotosAlbum
             self.present(pickerController, animated: true, completion: nil)
-            
         }
-        
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
         
         alertController.addAction(cameraAction)
         alertController.addAction(photosLibraryAction)
         alertController.addAction(savedPhotosAction)
         alertController.addAction(cancelAction)
-        
-        
+
         present(alertController, animated: true, completion: nil)
-        
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -188,8 +157,7 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
-
-    
+ 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
@@ -197,14 +165,11 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
         cardName.resignFirstResponder()
         return (true)
     }
-//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        guard cardDescription?.text != "" else {
-//            return false
-//        }
-//     // let newText = (cardDescription!.text as NSString).replacingCharacters(in: range, with: text)
-//        let numberOfChars = cardDescription?.text.characters.count
-//        return numberOfChars! < 140
-//
-//    }
-    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n"{
+            cardDescription?.resignFirstResponder()
+            return false
+        }
+        return true
+    }
 }
