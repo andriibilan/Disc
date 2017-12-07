@@ -22,6 +22,7 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.frontImage.isUserInteractionEnabled = true
         self.backImage.isUserInteractionEnabled = true
         self.barCodeImage?.isUserInteractionEnabled = true

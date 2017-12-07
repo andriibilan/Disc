@@ -8,28 +8,27 @@
 
 import UIKit
 
-class PageImageViewController: UIViewController {
+class PageImageViewController: UIViewController,UIScrollViewDelegate {
     var card = CardManager()
-
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var showPageImage: UIImageView!
     var imagePage: String = ""
     var index = 0
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-     showView(imagePage)
- 
+        
+        self.scrollView.minimumZoomScale = 1.0
+        self.scrollView.maximumZoomScale = 4.0
+        
+        showPageImage.image = UIImage(cgImage: (card.loadImageFromPath(path: imagePage)?.cgImage!)!, scale: CGFloat(1.0), orientation: .left)
+        showPageImage.setCorner(radius: 50)
+        showPageImage.layer.borderColor = UIColor.red.cgColor
     }
-   
-    func showView(_ imageStr: String) {
-        let imageForPaging = UIImageView(image: card.loadImageFromPath(path: imageStr))
-        imageForPaging.transform = imageForPaging.transform.rotated(by: CGFloat(-Double.pi / 2))
-         imageForPaging.setCorner(radius: 50)
-        imageForPaging.layer.borderColor = UIColor.red.cgColor
-        let newWidth = UIScreen.main.bounds.width - 20
-        let newHeight = newWidth / 0.68
-        imageForPaging.frame = CGRect(x: 10, y: 20, width: newWidth, height: newHeight)
-        view.addSubview(imageForPaging)
-    } 
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.showPageImage
+    }
+
 }
 

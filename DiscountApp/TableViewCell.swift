@@ -18,12 +18,9 @@ class TableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         imagePrototype.setCorner(radius: 10)
-//        imagePrototype.layer.cornerRadius = imagePrototype.frame.width/10.0
-//        imagePrototype.layer.borderWidth = 2
+
         imagePrototype.layer.borderColor = UIColor.red.cgColor
         
     }
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//    }
+
 }
