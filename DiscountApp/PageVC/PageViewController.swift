@@ -9,10 +9,8 @@
 import UIKit
 
 class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
-  
-    var pageControl = UIPageControl.appearance()
     var cardPage: Card?
-    var card = CardManager()
+  //  var card = CardManager()
     var pageIndex = 0
     var pageCount = 0
 
@@ -27,7 +25,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         index = index + 1
         return imageViewController(at: index)
     }
-    
 
     func imageViewController(at index: Int) -> PageImageViewController? {
         var maxCountOfPage = 3
@@ -46,10 +43,8 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
             imageViewController.index = index
             return imageViewController
         }
-        
         return nil
     }
-    
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
@@ -70,16 +65,16 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
                                completion: nil)}
        self.navigationItem.configureTitleView()
     }
-
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        self.pageControl.pageIndicatorTintColor = UIColor.yellow
-        self.pageControl.backgroundColor = UIColor.black
-        self.pageControl.currentPageIndicatorTintColor = UIColor.red
+        let pageControl = UIPageControl.appearance()
+        pageControl.pageIndicatorTintColor = UIColor.yellow
+        pageControl.backgroundColor = UIColor.black
+        pageControl.currentPageIndicatorTintColor = UIColor.red
         return pageCount
     }
+    
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-
         return 0
     }
 

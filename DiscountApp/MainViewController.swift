@@ -46,7 +46,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    func filterForTableView(text: String){
+    func filterForTableView(text: String) {
         cardArray = cardArray.filter( { (mod)-> Bool in
             return (mod.cardName.lowercased().contains(text.lowercased()))
         })
@@ -55,7 +55,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchName: String) {
-        if searchName.isEmpty{
+        if searchName.isEmpty {
             cardArray = card.fetchData(filter: filter )
             prototypeTableView.reloadData()
         } else {
@@ -96,8 +96,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.cardDescription?.text = cardCell.cardDescription
         cell.date?.text = card.dateConvert(cardCell.cardDate)
         cell.imagePrototype.image = card.loadImageFromPath(path: cardCell.cardFrontImage)
-      
-        
        cell.selectionStyle = UITableViewCellSelectionStyle.none
        cell.backgroundColor = UIColor.clear
         return cell
@@ -106,8 +104,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        self.performSegue(withIdentifier: "show Paging", sender: self.cardArray[indexPath.row])
     }
-   
-    
+
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: "") { action, sourceView, completionHandler  in
             self.card.deleteCard(card: self.cardArray[indexPath.row])
@@ -138,7 +135,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let config = UISwipeActionsConfiguration(actions: [edit,share,delete])
         config.performsFirstActionWithFullSwipe = false
         return config
-
     }
 
     override func viewDidLoad() {
@@ -149,17 +145,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         prototypeTableView.dataSource = self
         searchBar.delegate = self
         self.prototypeTableView.backgroundColor = UIColor.clear
-        
         self.searchBar.setPlaceholderTextColorTo(color: UIColor.white)
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).textColor = UIColor.red
-
         view.setBackgroundImage()
         let segmentControl = UISegmentedControl.self
         segmentControl.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.white], for: .selected)
-
         self.navigationItem.configureTitleView()
     }
-    
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {

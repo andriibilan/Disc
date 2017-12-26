@@ -10,13 +10,12 @@ import UIKit
 import LocalAuthentication
 class TouchIDViewController: UIViewController {
 
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
          TouchID () 
     }
-
-    func TouchID ()  {
+    
+    func TouchID () {
         /// Create an authentication context
         let authenticationContext = LAContext()
         
@@ -24,11 +23,13 @@ class TouchIDViewController: UIViewController {
         var touchIdNotFoundError: NSError?
         
         if authenticationContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &touchIdNotFoundError) {
-            authenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "need you Touch ID", reply: { (success,error) in
+            authenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Need your Touch ID", reply: { (success,error) in
                 if success {
-                    self.performSegue(withIdentifier: "showMain", sender: self)
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "showMain", sender: self)
+                    }
                 } else {
-                    if let error = error as NSError?{
+                    if let error = error as NSError? {
                         switch error.code {
                         case LAError.userCancel.rawValue:
                             exit(0)
@@ -41,12 +42,12 @@ class TouchIDViewController: UIViewController {
                     self.password()
                 }
             })
-        }else{
+        } else {
             password()
         }
     }
 
-    func password(){
+    func password() {
         let password = "qwerty"
         let alertController = UIAlertController(title: "Password", message: "Please enter a password", preferredStyle: .alert)
         DispatchQueue.main.async {
@@ -54,12 +55,12 @@ class TouchIDViewController: UIViewController {
                 textfield.text = ""
                 textfield.isSecureTextEntry = true}
         }
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction) in exit(0)}))
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler:{ (alert: UIAlertAction) in
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert: UIAlertAction) in exit(0)}))
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {(alert: UIAlertAction) in
             let passwordADD = alertController.textFields![0]
             if  password == passwordADD.text {
                 self.performSegue(withIdentifier: "showMain", sender: self)
-            }else {
+            } else {
                 exit(0)
             }
         }))

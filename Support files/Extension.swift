@@ -8,9 +8,8 @@
 
 import UIKit
 
-extension UIView
-{
-    func setCorner(radius: CGFloat){
+extension UIView {
+    func setCorner(radius: CGFloat) {
         
         self.layer.cornerRadius = radius
         layer.borderWidth = 2
@@ -25,8 +24,7 @@ extension UIView
         
     }
 }
-extension UISearchBar
-{
+extension UISearchBar {
     func setPlaceholderTextColorTo(color: UIColor)
     {
         let textFieldInsideSearchBar = self.value(forKey: "searchField") as? UITextField
@@ -37,10 +35,8 @@ extension UISearchBar
 }
 
 
-extension UINavigationItem
-{
-    func configureTitleView()
-    {
+extension UINavigationItem {
+    func configureTitleView() {
         let navBar = UINavigationBar.appearance()
         let image = #imageLiteral(resourceName: "rsz_1467be293e99ed9ef56014a02f4be2308-discount-red-rounded-by-vexels")
         let imageView = UIImageView(image: image)
@@ -49,14 +45,12 @@ extension UINavigationItem
         let bannerX = bannerW / 2 - image.size.width / 2
         let bannerY = bannerH / 2 - image.size.height / 2
         imageView.frame = CGRect(x: bannerX, y: bannerY, width: bannerW , height: bannerH)
-        //imageView.contentMode = .scaleAspectFit
         titleView = imageView
     }
 }
 
 
-extension UIColor
-{
+extension UIColor{
     static var cBlack = UIColor(red: 51.0/255.0, green: 51.0/255.0, blue: 51.0/255.0, alpha: 1.0)
 }
 

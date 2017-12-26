@@ -19,7 +19,8 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
     @IBOutlet weak var barCodeImage: UIImageView?
     @IBOutlet weak var cardDescription: UITextView?
     @IBOutlet weak var SegmentFilter: UISegmentedControl!
-
+    @IBOutlet weak var createButton: MyButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,11 +37,12 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
         frontImage.setCorner(radius: 30)
         backImage.setCorner(radius: 30)
         barCodeImage?.setCorner(radius: 30)
-        cardDescription?.setCorner(radius: 20)
+        cardDescription?.setCorner(radius: 10)
         cardName.setCorner(radius: 10)
         SegmentFilter.setCorner(radius: 10)
         
         if let cardChange = cardEdit {
+            createButton.setTitle("SAVE", for: .normal)
             self.cardName.text = cardChange.cardName
             self.cardDescription?.text = cardChange.cardDescription
             self.frontImage.image = card.loadImageFromPath(path: cardChange.cardFrontImage)
@@ -50,6 +52,7 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
                 return self.barCodeImage!.image = #imageLiteral(resourceName: "Design - Barcode")
             }
             self.barCodeImage?.image = card.loadImageFromPath(path: cardChange.cardBarCode)
+            createButton.setTitle("Save", for: .normal)
         }
     }
 
@@ -93,8 +96,7 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
                                  barCode: barCodeImage?.image,
                                  filter: card.chooseSegmentOfFilter(segment: SegmentFilter))
             }
-           
-        }else {
+        } else {
             let alertController = UIAlertController(title: "OOPS", message: "You need to give all the informations required to save this card", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(alertController, animated: true, completion: nil)
@@ -105,6 +107,7 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
         imageIs = "frontImage"
         allertAfterTapRecognizer()
     }
+    
     @IBAction func tapToBackImage(_ sender: Any) {
         imageIs = "backImage"
         allertAfterTapRecognizer()
@@ -114,13 +117,12 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         pickerController.allowsEditing = true
-
         let alertController = UIAlertController(title: "Add a Picture", message: "Choose From", preferredStyle: .actionSheet)
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
             if(UIImagePickerController.isSourceTypeAvailable(.camera)){
                 pickerController.sourceType = .camera
                 self.present(pickerController, animated: true, completion: nil)
-            }else{
+            } else {
                 let alertController = UIAlertController(title: "Error", message: "Camera is not available now", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alertController, animated: true, completion: nil)
@@ -149,12 +151,11 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
         let image = info[UIImagePickerControllerEditedImage] as? UIImage
         if  imageIs == "frontImage" {
             self.frontImage.image = image
-        }else{
+        } else {
             self.backImage.image = image
         }
     }
-    
- 
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
@@ -162,10 +163,12 @@ class EditPropertiesViewController: UIViewController, UIImagePickerControllerDel
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         cardName.resignFirstResponder()
         return (true)
     }
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n"{
             cardDescription?.resignFirstResponder()

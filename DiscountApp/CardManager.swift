@@ -44,11 +44,10 @@ class CardManager: NSObject {
         let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
         let uuidStringforURL = UUID().uuidString + ".jpg"
         let imgPath = URL(fileURLWithPath: documentDirectoryPath.appendingPathComponent(uuidStringforURL))// Change extension if you want to save as PNG
-//        let imageString = String(describing: imgPath)
-//        print(imageString)
-        do{
+
+        do {
             try UIImageJPEGRepresentation(photo!, 1.0)?.write(to: imgPath, options: .atomic)
-        }catch let error{
+        } catch let error {
             print(error.localizedDescription)
         }
         return uuidStringforURL
@@ -82,8 +81,7 @@ class CardManager: NSObject {
     func saveData(){
         do {
             try getContext().save()
-        }
-        catch {
+        } catch {
             print(error.localizedDescription)
         }
     }
@@ -93,10 +91,9 @@ class CardManager: NSObject {
         if filter != nil && filter != ""  {
             fetchRequest.predicate = NSPredicate(format: "cardFilter == %@", filter!)
             var cardArray:[Card] = []
-            do{
+            do {
                 cardArray = (try getContext().fetch(fetchRequest) as? [Card])!
-            }
-            catch {
+            } catch {
                 print("Error fetch")
             }
             return cardArray
@@ -118,7 +115,7 @@ class CardManager: NSObject {
     }
 
     func chooseSegmentOfFilter( segment: UISegmentedControl) -> String {
-        let  index = segment.selectedSegmentIndex
+        let index = segment.selectedSegmentIndex
         switch index {
         case 0:
             return "Shop"
